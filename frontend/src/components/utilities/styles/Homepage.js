@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../../Navbar/Homepage/Navbar";
-import MiddleContainer from "../../Navbar/Homepage/MiddleContainer";
+import MiddleContainer from "../../HomePage/MiddleContainer";
 import { HOMEPAGE_IMAGE_URL } from "../constant/Home/homePageConstant";
 
 const Homepage = () => {

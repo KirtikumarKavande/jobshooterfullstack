@@ -3,7 +3,7 @@ import IntroText from "./IntroText";
 import Email from "./Email";
 import Password from "./Password";
 import {Link} from 'react-router-dom'
-import Button from "../../utilities/styles/Button";
+import Button from "../utilities/styles/Button";
 
 const MiddleContainer = () => {
   return (

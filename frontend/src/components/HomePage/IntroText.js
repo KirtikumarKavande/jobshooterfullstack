@@ -1,5 +1,5 @@
 import React from "react";
-import { HOMEPAGE_BIG_TEXT } from "../../utilities/constant/Home/homePageConstant";
+import { HOMEPAGE_BIG_TEXT } from "../utilities/constant/Home/homePageConstant";
 
 const IntroText = () => {
   return (
