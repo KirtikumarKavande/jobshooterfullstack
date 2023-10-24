@@ -1,7 +1,10 @@
+import Navbar from "./components/Navbar/Homepage/Navbar";
+import Homepage from "./components/utilities/styles/Homepage";
+
 export default function App() {
   return (
-    <h1 className="text-3xl font-bold underline text-red-500">
-      Hello world!
-    </h1>
-  )
+    <>
+      <Homepage />
+    </>
+  );
 }
