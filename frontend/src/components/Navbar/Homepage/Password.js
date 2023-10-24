@@ -17,7 +17,7 @@ const Password = () => {
         />
 
         <button
-          className="text-blue-600 font-semibold text-md "
+          className="text-blue-600 font-semibold text-md w-[5vw]"
           onClick={() => {
             setShowPassword(!showPassword);
           }}

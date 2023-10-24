@@ -30,18 +30,14 @@ const Navbar = () => {
             </div>
           </div>
 
-          <button class=" hover:bg-gray-100 text-gray-500 font-bold py-1 px-5 rounded-full">
+          <button className=" hover:bg-gray-100 text-gray-500 font-bold py-1 px-5 rounded-full">
            Join now
           </button>
 
-          <button class=" hover:bg-gray-100 text-blue-500 border border-blue-500 font-semibold py-1 px-5 rounded-full ">
+          <button className=" hover:bg-gray-100 text-blue-500 border border-blue-500 font-semibold py-1 px-5 rounded-full ">
           Sign in
           </button>
-          {/* 
-          <div className=" w-20">
-            <PiArticle className=" mx-auto text-gray-600" size={25} />
-            <div className="text-gray-600 text-center">Articles</div>
-          </div> */}
+       
         </div>
       </div>
     </div>
