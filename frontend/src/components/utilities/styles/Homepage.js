@@ -5,15 +5,22 @@ import { HOMEPAGE_IMAGE_URL } from "../constant/Home/homePageConstant";
 
 const Homepage = () => {
   return (
-    <div className="ml-[7vw]  min-h-screen ">
+    <div className=" ml-[4vw] md:ml-[7vw]  mr-3 md:mr-0 ">
       <Navbar />
       <div className="flex ">
-        <div className="w-1/2 mt-[45px]">
+        <div className="w-full md:w-1/2 mt-[15px] md:mt-[45px] ">
           <MiddleContainer />
         </div>
 
-        <div className="w-1/2 mt-24  overflow-x-hidden">
-          <img src={HOMEPAGE_IMAGE_URL} alt="home page" className="w-[100vw] ml-[5vw] " />
+        <div
+          style={{ height: "1000px" }}
+          className="w-1/2  mt-24  hidden md:block overflow-x-hidden"
+        >
+          <img
+            src={HOMEPAGE_IMAGE_URL}
+            alt="home page"
+            className=" md:ml-[15vw] lg:ml-[5vw] "
+          />
         </div>
       </div>
     </div>
