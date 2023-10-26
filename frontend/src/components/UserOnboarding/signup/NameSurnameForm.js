@@ -5,13 +5,23 @@ import PrivacyAndCookie from "../utilities/Functions/PrivacyAndCookie";
 import Button from "../../utilities/styles/Button";
 import useInput from "../../hooks/useInput";
 
-const UserDetails = () => {
+const NameSurnameForm = () => {
   const { userInput, onChange } = useInput({});
 
   return (
     <OnboardingContainer>
-      <Input label={"First name"} type="text" name="firstName" onChange={onChange}/>
-      <Input label={"Last name"} type="text" name="lastName" onChange={onChange}/>
+      <Input
+        label={"First name"}
+        type="text"
+        name="firstName"
+        onChange={onChange}
+      />
+      <Input
+        label={"Last name"}
+        type="text"
+        name="lastName"
+        onChange={onChange}
+      />
       <PrivacyAndCookie />
       <Button bgColor={"#0A66C2"} height={"7vh"} textColour={"white"}>
         Agree & Join
@@ -20,4 +30,4 @@ const UserDetails = () => {
   );
 };
 
-export default UserDetails;
+export default NameSurnameForm;

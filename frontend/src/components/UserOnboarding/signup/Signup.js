@@ -1,17 +1,16 @@
 import { useState } from "react";
 import SignupForm from "./SignupForm";
-import UserDetails from "./UserDetails";
-import { useSelector } from "react-redux";
+import NameSurnameForm from "./NameSurnameForm";
 
 const Signup = () => {
-  const [isShowUserDetailsForm, setIsShowUserDetailsForm] = useState(true);
+  const [isShowNameSurnameForm, setIsShowNameSurnameForm] = useState(true);
 
   return (
     <>
-      {isShowUserDetailsForm ? (
-        <SignupForm setIsShowUserDetailsForm={setIsShowUserDetailsForm} />
+      {isShowNameSurnameForm ? (
+        <SignupForm setIsShowNameSurnameForm={setIsShowNameSurnameForm} />
       ) : (
-        <UserDetails />
+        <NameSurnameForm />
       )}
     </>
   );

@@ -18,16 +18,16 @@ const SignupForm = (props) => {
     emaiError: "",
     passwordError: "",
   });
-  const { setIsShowUserDetailsForm } = props;
+  const { setIsShowNameSurnameForm } = props;
 
   const { userInput, onChange } = useInput({});
-  const addUserDetails = () => {
+  const addNameSurname = () => {
     if (!emailRegex.test(userInput.email)) {
       setShowError({ emaiError: WRONG_EMAIL });
     } else if (!passwordRegex.test(userInput.password)) {
       setShowError({ passwordError: WRONG_PASSWORD });
     } else {
-      setIsShowUserDetailsForm(false);
+      setIsShowNameSurnameForm(false);
     }
   };
   useEffect(() => {
@@ -55,7 +55,7 @@ const SignupForm = (props) => {
           bgColor={"#0A66C2"}
           height={"7vh"}
           textColour={"white"}
-          onClick={addUserDetails}
+          onClick={addNameSurname}
         >
           Agree & Join
         </Button>
