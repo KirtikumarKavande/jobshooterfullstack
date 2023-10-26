@@ -1,26 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OnboardingContainer from "../OnboardingContainer";
 import Input from "../utilities/style/Input";
 import PasswordInput from "../utilities/style/PasswordInput";
 import Button from "../../utilities/styles/Button";
-import { useDispatch } from "react-redux";
-import { showUserDetails } from "../../store/UserOnBoardSlice";
-import PrivacyAndCookie from "../utilities/Functions/PrivacyAndCookie";
 
+import PrivacyAndCookie from "../utilities/Functions/PrivacyAndCookie";
+// import useInput from "../../hooks/useInput"
+import useInput from "../../hooks/useInput";
+import { emailRegex } from "../utilities/constant/Regex";
+import { passwordRegex } from "../utilities/constant/Regex";
+import { WRONG_EMAIL } from "../utilities/constant/constant";
+import { WRONG_PASSWORD } from "../utilities/constant/constant";
+import Error from "../utilities/style/Error";
 
 const SignupForm = (props) => {
-const {setIsShowUserDetailsForm}=props
-  const addUserDetails=()=>{
-    setIsShowUserDetailsForm(false)
-  }
- const dispatch= useDispatch()
+  const [showError, setShowError] = useState({
+    emaiError: "",
+    passwordError: "",
+  });
+  const { setIsShowUserDetailsForm } = props;
+
+  const { userInput, onChange } = useInput({});
+  const addUserDetails = () => {
+    if (!emailRegex.test(userInput.email)) {
+      setShowError({ emaiError: WRONG_EMAIL });
+    } else if (!passwordRegex.test(userInput.password)) {
+      setShowError({ passwordError: WRONG_PASSWORD });
+    } else {
+      setIsShowUserDetailsForm(false);
+    }
+  };
+  useEffect(() => {
+    setShowError({ emaiError: "", passwordError: "" });
+  }, [userInput.email, userInput.password]);
+
   return (
-    <>
+    <div className="">
       <OnboardingContainer>
-        <Input label={"Email"} type={"email"} />
-        <PasswordInput />
-       <PrivacyAndCookie/>
-        <Button bgColor={"#0A66C2"} height={"7vh"} textColour={"white"} onClick={addUserDetails}>
+        <Input
+          label={"Email"}
+          type={"email"}
+          name="email"
+          onChange={onChange}
+          value={userInput.email}
+        />
+        {!!showError.emaiError && <Error errorMessage={showError.emaiError} />}
+        <PasswordInput onChange={onChange} value={userInput.password} />
+        {!!showError.passwordError && (
+          <Error errorMessage={showError.passwordError} />
+        )}
+
+        <PrivacyAndCookie />
+        <Button
+          bgColor={"#0A66C2"}
+          height={"7vh"}
+          textColour={"white"}
+          onClick={addUserDetails}
+        >
           Agree & Join
         </Button>
         <div className="divider divider-horizontal mt-6">OR</div>
@@ -35,7 +71,7 @@ const {setIsShowUserDetailsForm}=props
           </span>{" "}
         </div>
       </OnboardingContainer>
-    </>
+    </div>
   );
 };
 

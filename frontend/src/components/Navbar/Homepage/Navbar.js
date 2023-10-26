@@ -13,7 +13,7 @@ const Navbar = () => {
         <div className="w-2/3 flex space-x-4 ">
           {navItems.map((item) => {
             return (
-              <div className=" w-20 hidden  lg:block">
+              <div key={item.name} className=" w-20 hidden  lg:block">
                 <div className=" px-7 text-gray-600">{item.icon}</div>
                 <div className="text-gray-600 text-center text-sm mt-1">
                   {item.name}

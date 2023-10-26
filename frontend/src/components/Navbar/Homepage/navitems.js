@@ -5,7 +5,7 @@ import { BsFillBagDashFill} from "react-icons/bs";
 import {ICON_SIZE} from "../../utilities/constant/Home/homePageConstant"
 
 export const navItems = [
-  {
+  { 
     name: "Articles",
     icon: <Articles size={ICON_SIZE} />,
     path: "/",
