@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import OnboardingContainer from "../OnboardingContainer";
+import SignUpContainer from "../SignUpContainer";
 import Input from "../utilities/style/Input";
 import PrivacyAndCookie from "../utilities/Functions/PrivacyAndCookie";
 import Button from "../../utilities/styles/Button";
@@ -9,7 +9,7 @@ const NameSurnameForm = () => {
   const { userInput, onChange } = useInput({});
 
   return (
-    <OnboardingContainer>
+    <SignUpContainer>
       <Input
         label={"First name"}
         type="text"
@@ -26,7 +26,7 @@ const NameSurnameForm = () => {
       <Button bgColor={"#0A66C2"} height={"7vh"} textColour={"white"}>
         Agree & Join
       </Button>
-    </OnboardingContainer>
+    </SignUpContainer>
   );
 };
 

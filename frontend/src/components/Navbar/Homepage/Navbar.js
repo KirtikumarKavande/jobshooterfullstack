@@ -1,9 +1,10 @@
 import React from "react";
 import { GrPersonalComputer } from "react-icons/gr";
 import { navItems } from "./navitems";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="flex   w-full h-20 items-center ">
@@ -31,9 +32,12 @@ const Navbar = () => {
             </div>
           </div>
 
-          <button className=" hover:bg-gray-100 text-gray-500 font-bold py-1 px-5 rounded-full">
-            <Link to="onboarding/signup">Join now</Link>
-          </button>
+          <button
+            onClick={() => {
+              navigate("onboarding/signup");
+            }}
+            className=" hover:bg-gray-100 text-gray-500 font-bold py-1 px-5 rounded-full"
+          >Join now</button>
 
           <button className=" hover:bg-gray-100 text-blue-500 border border-blue-500 font-semibold py-1 px-5 rounded-full ">
             Sign in

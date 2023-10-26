@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 
-const OnboardingContainer = (props) => {
+const SignUpContainer = (props) => {
   return (
     <div>
       <Navbar/>
@@ -17,4 +17,4 @@ const OnboardingContainer = (props) => {
   );
 };
 
-export default OnboardingContainer;
+export default SignUpContainer;

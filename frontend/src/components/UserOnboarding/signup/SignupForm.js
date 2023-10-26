@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import OnboardingContainer from "../OnboardingContainer";
+import SignUpContainer from "../SignUpContainer";
 import Input from "../utilities/style/Input";
 import PasswordInput from "../utilities/style/PasswordInput";
 import Button from "../../utilities/styles/Button";
@@ -36,7 +36,7 @@ const SignupForm = (props) => {
 
   return (
     <div className="">
-      <OnboardingContainer>
+      <SignUpContainer>
         <Input
           label={"Email"}
           type={"email"}
@@ -70,7 +70,7 @@ const SignupForm = (props) => {
             Sign in
           </span>{" "}
         </div>
-      </OnboardingContainer>
+      </SignUpContainer>
     </div>
   );
 };
