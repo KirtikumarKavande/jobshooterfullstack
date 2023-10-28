@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SignUpContainer from "../SignUpContainer";
+import SignUpContainer from "../utilities/style/SignUpContainer";
 import Input from "../utilities/style/Input";
 import PasswordInput from "../utilities/style/PasswordInput";
 import Button from "../../utilities/styles/Button";

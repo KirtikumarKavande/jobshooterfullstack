@@ -1,3 +1,4 @@
+import LocationDetails from "./components/UserOnboarding/UserDetails/LocationDetails";
 import Signup from "./components/UserOnboarding/signup/Signup";
 import Homepage from "./components/utilities/styles/Homepage";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -9,8 +10,13 @@ export default function App() {
       element: <Homepage />,
     },
     {
-      path: "/onboarding/signup",
+      path: "onboarding/signup",
       element: <Signup />,
+      
+    },
+    {
+      path: "/onboarding/location",
+      element: <LocationDetails />,
     },
   ]);
 

@@ -13,7 +13,7 @@ const Button = (props) => {
     <button
     onClick={onClick}
       style={buttonStyle}
-      className={` font-medium rounded-full w-full lg:w-[${width}vw]  mt-4   border border-${border}   hover:opacity-95 `}
+      className={` font-medium rounded-full  w-full lg:w-[${width}vw]  mt-4   border border-${border}   hover:opacity-95 `}
     >
       {props.children}
     </button>
