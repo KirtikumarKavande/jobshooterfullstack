@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const UserOnBoardSlice = createSlice({
-  initialState: {  },
+  initialState: {email:"",password:"",firstName:"",lastName:""  },
   name: "useronboard",
   reducers: {
-    showUserDetails(state, action) {},
+    showUserDetails(state, action) {
+      return {...state,...action.payload}
+    },
   },
 });
 export const { showUserDetails } = UserOnBoardSlice.actions;

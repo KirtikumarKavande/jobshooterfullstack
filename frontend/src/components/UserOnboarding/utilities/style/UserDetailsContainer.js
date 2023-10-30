@@ -18,10 +18,10 @@ const UserDetailsContainer = (props) => {
             <span>{localStorage.getItem("jobshooterName")|| "User"}!</span>
             <span>{userDetailsLocationText}</span>
           </div>
-          <div className="mt-3">{userDrtailsSmallText}</div>
+          <div className="mt-3 font-normal text-gray-500">{userDrtailsSmallText}</div>
         </div>
 
-        <div className=" w-70vw md:w-[60vw] md:mx-auto mx-4 lg:w-[30vw]   p-6  ">
+        <div className=" w-70vw md:w-[60vw] md:mx-auto mx-4 lg:w-[35vw]   p-6  ">
           {props.children}
         </div>
       </div>

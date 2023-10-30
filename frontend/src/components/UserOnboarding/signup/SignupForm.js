@@ -12,8 +12,11 @@ import { passwordRegex } from "../utilities/constant/Regex";
 import { WRONG_EMAIL } from "../utilities/constant/constant";
 import { WRONG_PASSWORD } from "../utilities/constant/constant";
 import Error from "../utilities/style/Error";
+import { useDispatch } from "react-redux";
+import { showUserDetails } from "../../store/UserOnBoardSlice";
 
 const SignupForm = (props) => {
+  const dispatch = useDispatch();
   const [showError, setShowError] = useState({
     emaiError: "",
     passwordError: "",
@@ -27,6 +30,8 @@ const SignupForm = (props) => {
     } else if (!passwordRegex.test(userInput.password)) {
       setShowError({ passwordError: WRONG_PASSWORD });
     } else {
+      console.log("userInput",userInput)
+      dispatch(showUserDetails(userInput));
       setIsShowNameSurnameForm(false);
     }
   };

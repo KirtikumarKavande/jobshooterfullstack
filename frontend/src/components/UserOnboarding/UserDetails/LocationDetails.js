@@ -4,71 +4,76 @@ import Input from "../utilities/style/Input";
 import Button from "../../utilities/styles/Button";
 import SearchAndSelect from "../utilities/style/SearchAndSelect";
 import { Country, State, City } from "country-state-city";
+import useInput from "../../hooks/useInput";
+import { useDispatch } from "react-redux";
+import { showUserDetails } from "../../store/UserOnBoardSlice";
 const LocationDetails = () => {
   const [isShowSuggestionForCountry, setIsShowSuggestionForCountry] =
     useState(false);
   const [isShowSuggestionForState, setIsShowSuggestionForState] =
     useState(false);
   const [isShowSuggestionForCity, setIsShowSuggestionForCity] = useState(false);
-
-  const [countryInput, setCountryInput] = useState();
-  const [stateInput, setStateInput] = useState();
-  const [cityInput, setCityInput] = useState();
-
+  const { userInput, onChange, setUserInput } = useInput({
+    country: "",
+    state: "",
+    city: "",
+  });
+  const dispatch = useDispatch();
   const [countryCode, setCountryCode] = useState("");
   const [stateCode, setStateCode] = useState();
 
- 
   const clickOnCountry = (item) => {
     setCountryCode(item.isoCode);
-    setCountryInput(item.name);
-
+    setUserInput({ ...userInput, country: item.name });
+    dispatch(showUserDetails({ country: item.name }));
     setIsShowSuggestionForCountry(false);
   };
   const clickOnState = (item) => {
     setStateCode(item.isoCode);
-    setStateInput(item.name);
+    dispatch(showUserDetails({ state: item.name }));
 
+    setUserInput({ ...userInput, state: item.name });
     setIsShowSuggestionForState(false);
   };
   const clickOnCity = (item) => {
-    setCityInput(item.name);
-   setIsShowSuggestionForCity(false);
+    dispatch(showUserDetails({ city: item.name }));
+
+    setUserInput({ ...userInput, city: item.name });
+    setIsShowSuggestionForCity(false);
   };
   return (
     <UserDetailsContainer>
-      {/* <div className="w-full relative">
-       <input className="w-full border mt-5" />
-      <input className="w-full border mt-5" />
-
-
-      </div> */}
       <SearchAndSelect
-        onChange={(e)=>{setCountryInput(e.target.value)}}
+        onChange={onChange}
         label="Country/Region"
         name="country"
         data={Country.getAllCountries()}
-        searchString={countryInput}
-        value={countryInput}
+        searchString={userInput.country}
+        value={userInput.country}
         onClick={clickOnCountry}
         setIsShowSuggestion={setIsShowSuggestionForCountry}
         isShowSuggestion={isShowSuggestionForCountry}
+        zIndexOfInput={50}
         onFocus={() => {
           setIsShowSuggestionForCountry(true);
         }}
         onBlur={() => {
           setIsShowSuggestionForCountry(false);
         }}
+        setCode={setCountryCode}
+        setSearchString={setUserInput}
+        userInput={userInput}
       />
       <SearchAndSelect
-        onChange={(e)=>{setStateInput(e.target.value)}}
+        onChange={onChange}
         label="State"
         name="state"
         data={State.getStatesOfCountry(countryCode || "IN")}
-        searchString={stateInput}
-        value={stateInput}
+        searchString={userInput.state}
+        value={userInput.state}
         setIsShowSuggestion={setIsShowSuggestionForState}
         isShowSuggestion={isShowSuggestionForState}
+        zIndexOfInput={40}
         onFocus={() => {
           setIsShowSuggestionForState(true);
         }}
@@ -76,17 +81,21 @@ const LocationDetails = () => {
           setIsShowSuggestionForState(false);
         }}
         onClick={clickOnState}
+        setSearchString={setUserInput}
+        setCode={setStateCode}
+        userInput={userInput}
       />
 
       <SearchAndSelect
-        onChange={(e)=>{setCityInput(e.target.value)}}
+        onChange={onChange}
         label="City"
         name="city"
         data={City.getCitiesOfState(countryCode, stateCode)}
-        searchString={cityInput}
-        value={cityInput}
+        searchString={userInput.city}
+        value={userInput.city}
         setIsShowSuggestion={setIsShowSuggestionForCity}
         isShowSuggestion={isShowSuggestionForCity}
+        zIndexOfInput={30}
         onFocus={() => {
           setIsShowSuggestionForCity(true);
         }}
@@ -94,6 +103,8 @@ const LocationDetails = () => {
           setIsShowSuggestionForCity(false);
         }}
         onClick={clickOnCity}
+        setSearchString={setUserInput}
+        userInput={userInput}
       />
       <Button bgColor={"#0A66C2"} height={"7vh"} textColour={"white"}>
         Continue
