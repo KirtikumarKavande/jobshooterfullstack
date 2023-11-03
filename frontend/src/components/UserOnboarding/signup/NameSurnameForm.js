@@ -6,6 +6,7 @@ import Button from "../../utilities/styles/Button";
 import useInput from "../../hooks/useInput";
 import { useNavigate } from "react-router-dom";
 import { nameRegex } from "../utilities/constant/Regex";
+import { toast } from "react-hot-toast";
 import {
   WRONG_FIRSTNAME,
   WRONG_LASTNAME,
@@ -17,6 +18,8 @@ import usePostDataToDB from "../../hooks/usePostDataToDB";
 
 const NameSurnameForm = () => {
   const dispatch = useDispatch();
+  const signUpUserDetails = useSelector((store) => store.userSignup);
+
   const postDatatoDB = usePostDataToDB();
   const { userInput, onChange } = useInput({ firstName: "", lastName: "" });
   const [showError, setShowError] = useState({
@@ -25,7 +28,7 @@ const NameSurnameForm = () => {
   });
   const navigate = useNavigate();
 
-  const NavigateToLocationPage = () => {
+  const NavigateToLocationPage = async () => {
     if (!nameRegex.test(userInput.firstName)) {
       setShowError({ firstNameError: WRONG_FIRSTNAME });
     } else if (!nameRegex.test(userInput.lastName)) {
@@ -33,16 +36,23 @@ const NameSurnameForm = () => {
     } else {
       dispatch(showUserSignup(userInput));
       localStorage.setItem("jobshooterName", userInput.firstName);
-      postDatatoDB();
 
-      navigate("/onboarding/location");
+      const res = await postDatatoDB("createuser", {
+        ...signUpUserDetails,
+        ...userInput,
+      });
+      if (res.success) {
+        toast.success(res.message);
+        navigate("/onboarding/location");
+      } else {
+        toast.error(res.message);
+      }
     }
   };
   useEffect(() => {
     setShowError({ firstNameError: "", lastNameError: "" });
   }, [userInput.firstName, userInput.lastName]);
-  console.log("outside", userInput.firstName);
-  console.log("error watch", showError);
+
   return (
     <SignUpContainer>
       <Input

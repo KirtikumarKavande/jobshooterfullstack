@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const acccessToken = require("../utilities/tokenGenration");
 
 const createUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password,firstName,lastName } = req.body;
   try {
     const user = await User.findOne({ email });
 
@@ -11,8 +11,9 @@ const createUser = async (req, res) => {
       res.status(401).json({ statusCode: 401, message: "User Already Exist" });
     } else {
       bcrypt.hash(password, 10, async (err, hash) => {
-        const user = new User({ email: email, password: hash });
+        const user = new User({ email: email, password: hash,firstName,lastName });
         await user.save();
+        res.cookie("token", acccessToken.genrateAccessToken(email));
 
         res.status(200).json({
           success: true,
