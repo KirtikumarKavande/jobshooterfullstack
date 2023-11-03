@@ -5,7 +5,6 @@ import PasswordInput from "../utilities/style/PasswordInput";
 import Button from "../../utilities/styles/Button";
 
 import PrivacyAndCookie from "../utilities/Functions/PrivacyAndCookie";
-// import useInput from "../../hooks/useInput"
 import useInput from "../../hooks/useInput";
 import { emailRegex } from "../utilities/constant/Regex";
 import { passwordRegex } from "../utilities/constant/Regex";
@@ -13,7 +12,7 @@ import { WRONG_EMAIL } from "../utilities/constant/constant";
 import { WRONG_PASSWORD } from "../utilities/constant/constant";
 import Error from "../utilities/style/Error";
 import { useDispatch } from "react-redux";
-import { showUserDetails } from "../../store/UserOnBoardSlice";
+import { showUserSignup } from "../../store/UserSignupSlice";
 
 const SignupForm = (props) => {
   const dispatch = useDispatch();
@@ -30,8 +29,7 @@ const SignupForm = (props) => {
     } else if (!passwordRegex.test(userInput.password)) {
       setShowError({ passwordError: WRONG_PASSWORD });
     } else {
-      console.log("userInput",userInput)
-      dispatch(showUserDetails(userInput));
+      dispatch(showUserSignup(userInput));
       setIsShowNameSurnameForm(false);
     }
   };

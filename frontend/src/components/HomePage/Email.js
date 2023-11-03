@@ -1,6 +1,7 @@
 import React from "react";
 
-const Email = () => {
+const Email = (props) => {
+  const {onChange,name}=props
   return (
     <div className="mt-10">
       <label>Email</label>
@@ -11,6 +12,8 @@ const Email = () => {
         <input
           className="w-[100vw] h-10 outline-none pb-1 text-md"
           type="Email"
+          onChange={onChange}
+          name={name}
         />
       </div>
     </div>

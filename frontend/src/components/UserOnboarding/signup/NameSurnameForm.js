@@ -11,13 +11,14 @@ import {
   WRONG_LASTNAME,
 } from "../utilities/constant/constant";
 import Error from "../utilities/style/Error";
-import { useDispatch } from "react-redux";
-import { showUserDetails } from "../../store/UserOnBoardSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { showUserSignup } from "../../store/UserSignupSlice";
+import usePostDataToDB from "../../hooks/usePostDataToDB";
 
 const NameSurnameForm = () => {
   const dispatch = useDispatch();
-  
-  const { userInput, onChange } = useInput({firstName:"",lastName:""});
+  const postDatatoDB = usePostDataToDB();
+  const { userInput, onChange } = useInput({ firstName: "", lastName: "" });
   const [showError, setShowError] = useState({
     firstNameError: "",
     lastNameError: "",
@@ -25,21 +26,22 @@ const NameSurnameForm = () => {
   const navigate = useNavigate();
 
   const NavigateToLocationPage = () => {
-    if (!(nameRegex.test(userInput.firstName)) ) {
+    if (!nameRegex.test(userInput.firstName)) {
       setShowError({ firstNameError: WRONG_FIRSTNAME });
-    } else if (!(nameRegex.test(userInput.lastName))) {
+    } else if (!nameRegex.test(userInput.lastName)) {
       setShowError({ lastNameError: WRONG_LASTNAME });
     } else {
-      dispatch(showUserDetails(userInput));
+      dispatch(showUserSignup(userInput));
+      localStorage.setItem("jobshooterName", userInput.firstName);
+      postDatatoDB();
 
-      localStorage.setItem("jobshooterName",userInput.firstName);
       navigate("/onboarding/location");
     }
   };
   useEffect(() => {
     setShowError({ firstNameError: "", lastNameError: "" });
   }, [userInput.firstName, userInput.lastName]);
-  console.log("outside",userInput.firstName)
+  console.log("outside", userInput.firstName);
   console.log("error watch", showError);
   return (
     <SignUpContainer>

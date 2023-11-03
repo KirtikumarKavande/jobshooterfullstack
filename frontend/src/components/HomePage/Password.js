@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-const Password = () => {
+const Password = (props) => {
+  const { onChange, name } = props;
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="mt-6">
@@ -14,6 +15,8 @@ const Password = () => {
         <input
           className=" w-[85vw]  lg:w-[25vw] h-10 outline-none pb-1 text-md"
           type={showPassword ? "text" : "password"}
+          onChange={onChange}
+          name={name}
         />
 
         <button

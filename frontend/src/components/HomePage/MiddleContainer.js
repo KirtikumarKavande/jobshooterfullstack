@@ -5,13 +5,27 @@ import Password from "./Password";
 import { Link } from "react-router-dom";
 import Button from "../utilities/styles/Button";
 import { HOMEPAGE_IMAGE_URL } from "../utilities/constant/Home/homePageConstant";
-
+import useInput from "../hooks/useInput";
+import usePostDataToDB from "../hooks/usePostDataToDB";
+import toast from "react-hot-toast";
 const MiddleContainer = () => {
+  const { userInput, onChange } = useInput();
+  const postDataToDB = usePostDataToDB();
+
+  const handleSignToAccount = async () => {
+    const res = await postDataToDB(`signin`, userInput);
+    if (res.success) {
+      toast.success(res.message);
+    } else {
+      toast.error(res.message);
+    }
+  };
+
   return (
     <>
       <IntroText />
-      <Email />
-      <Password />
+      <Email onChange={onChange} name="email" />
+      <Password onChange={onChange} name="password" />
       <div className="font-bold text-base mt-3 text-blue-600">
         Forget Password?
       </div>
@@ -20,6 +34,7 @@ const MiddleContainer = () => {
         height={"8vh"}
         width={30}
         textColour={"white"}
+        onClick={handleSignToAccount}
       >
         Sign in
       </Button>
@@ -39,7 +54,6 @@ const MiddleContainer = () => {
         alt="home page"
         className="w-[100vw] mt-6  md:hidden"
       />
-      
     </>
   );
 };

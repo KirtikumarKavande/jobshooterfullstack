@@ -6,8 +6,9 @@ import SearchAndSelect from "../utilities/style/SearchAndSelect";
 import { Country, State, City } from "country-state-city";
 import useInput from "../../hooks/useInput";
 import { useDispatch } from "react-redux";
-import { showUserDetails } from "../../store/UserOnBoardSlice";
+import { useNavigate } from "react-router-dom";
 const LocationDetails = () => {
+  const navigate = useNavigate();
   const [isShowSuggestionForCountry, setIsShowSuggestionForCountry] =
     useState(false);
   const [isShowSuggestionForState, setIsShowSuggestionForState] =
@@ -25,21 +26,25 @@ const LocationDetails = () => {
   const clickOnCountry = (item) => {
     setCountryCode(item.isoCode);
     setUserInput({ ...userInput, country: item.name });
-    dispatch(showUserDetails({ country: item.name }));
+    // dispatch(showUserDetails({ country: item.name }));
     setIsShowSuggestionForCountry(false);
   };
   const clickOnState = (item) => {
     setStateCode(item.isoCode);
-    dispatch(showUserDetails({ state: item.name }));
+    // dispatch(showUserDetails({ state: item.name }));
 
     setUserInput({ ...userInput, state: item.name });
     setIsShowSuggestionForState(false);
   };
   const clickOnCity = (item) => {
-    dispatch(showUserDetails({ city: item.name }));
+    // dispatch(showUserDetails({ city: item.name }));
 
     setUserInput({ ...userInput, city: item.name });
     setIsShowSuggestionForCity(false);
+  };
+
+  const handleLocationData = () => {
+    
   };
   return (
     <UserDetailsContainer>
@@ -106,7 +111,12 @@ const LocationDetails = () => {
         setSearchString={setUserInput}
         userInput={userInput}
       />
-      <Button bgColor={"#0A66C2"} height={"7vh"} textColour={"white"}>
+      <Button
+        bgColor={"#0A66C2"}
+        height={"7vh"}
+        textColour={"white"}
+        onClick={handleLocationData}
+      >
         Continue
       </Button>
     </UserDetailsContainer>

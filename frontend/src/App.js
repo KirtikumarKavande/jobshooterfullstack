@@ -2,7 +2,7 @@ import LocationDetails from "./components/UserOnboarding/UserDetails/LocationDet
 import Signup from "./components/UserOnboarding/signup/Signup";
 import Homepage from "./components/utilities/styles/Homepage";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-
+import { Toaster } from 'react-hot-toast';
 export default function App() {
   const router = createBrowserRouter([
     {
@@ -22,6 +22,9 @@ export default function App() {
 
   return( <>
   <RouterProvider router={router}/>
-  
+  <Toaster
+  position="bottom-center"
+  reverseOrder={false}
+/>
   </>);
 }

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import UserOnBoardSlice from "./UserOnBoardSlice";
+import userSignupSlice from "./UserSignupSlice";
 
-const store = configureStore({ reducer: {userOnBoard:UserOnBoardSlice.reducer} });
+const store = configureStore({ reducer: {userSignup:userSignupSlice.reducer} });
 
 export default store;
