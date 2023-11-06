@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
+const userDetails = require("./routes/userDetails");
 
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
@@ -12,11 +13,10 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-
-
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 app.use(userRoutes);
+app.use(userDetails);
 
 mongoose
   .connect(process.env.MONGODB_CONNECTION_URL)

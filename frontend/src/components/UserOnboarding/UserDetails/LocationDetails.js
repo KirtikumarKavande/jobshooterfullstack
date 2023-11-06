@@ -5,10 +5,15 @@ import Button from "../../utilities/styles/Button";
 import SearchAndSelect from "../utilities/style/SearchAndSelect";
 import { Country, State, City } from "country-state-city";
 import useInput from "../../hooks/useInput";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { updateLocationDetails } from "../../store/LocationSlice";
+import usePostDataToDB  from "../../hooks/usePostDataToDB"
 const LocationDetails = () => {
+
   const navigate = useNavigate();
+  const postDataToDB=usePostDataToDB()
+  const locationDetails= useSelector(store=>store.location)
   const [isShowSuggestionForCountry, setIsShowSuggestionForCountry] =
     useState(false);
   const [isShowSuggestionForState, setIsShowSuggestionForState] =
@@ -26,25 +31,25 @@ const LocationDetails = () => {
   const clickOnCountry = (item) => {
     setCountryCode(item.isoCode);
     setUserInput({ ...userInput, country: item.name });
-    // dispatch(showUserDetails({ country: item.name }));
+    dispatch(updateLocationDetails({ country: item.name }));
     setIsShowSuggestionForCountry(false);
   };
   const clickOnState = (item) => {
     setStateCode(item.isoCode);
-    // dispatch(showUserDetails({ state: item.name }));
+    dispatch(updateLocationDetails({ state: item.name }));
 
     setUserInput({ ...userInput, state: item.name });
     setIsShowSuggestionForState(false);
   };
   const clickOnCity = (item) => {
-    // dispatch(showUserDetails({ city: item.name }));
+    dispatch(updateLocationDetails({ city: item.name }));
 
     setUserInput({ ...userInput, city: item.name });
     setIsShowSuggestionForCity(false);
   };
 
   const handleLocationData = () => {
-    
+    postDataToDB('location',locationDetails)
   };
   return (
     <UserDetailsContainer>

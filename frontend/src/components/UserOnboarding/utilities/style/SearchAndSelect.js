@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { updateLocationDetails } from "../../../store/LocationSlice";
 // import { showUserDetails } from "../../../store/UserOnBoardSlice";
 
 const SearchAndSelect = (props) => {
@@ -40,7 +41,9 @@ const SearchAndSelect = (props) => {
     } else if (e.key === "ArrowUp" && cursorOnIndex > 0) {
       setCursorOnIndex(cursorOnIndex - 1);
     } else if (e.key === "Enter") {
-      // dispatch(showUserDetails({ [name]: searchResult[cursorOnIndex]?.name }));
+      dispatch(
+        updateLocationDetails({ [name]: searchResult[cursorOnIndex]?.name })
+      );
 
       setSearchString({
         ...userInput,

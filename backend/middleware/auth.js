@@ -14,8 +14,7 @@ const auth = async (req, res, next) => {
   } catch (err) {
     res.status(403).json({ success: false, message: "something went wrong" });
   }
-  res.json({ token });
-  console.log("token", token);
+
 };
 
 module.exports = { auth };
