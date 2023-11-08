@@ -3,6 +3,7 @@ import Signup from "./components/UserOnboarding/signup/Signup";
 import Homepage from "./components/utilities/styles/Homepage";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import Profile from "./components/UserOnboarding/UserDetails/profile/Profile";
 export default function App() {
   const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ export default function App() {
     {
       path: "/onboarding/location",
       element: <LocationDetails />,
+    },
+    {
+      path: "/onboarding/profile",
+      element: <Profile />,
     },
   ]);
 

@@ -18,6 +18,7 @@ app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(userRoutes);
 app.use(userDetails);
 
+
 mongoose
   .connect(process.env.MONGODB_CONNECTION_URL)
   .then(() => {

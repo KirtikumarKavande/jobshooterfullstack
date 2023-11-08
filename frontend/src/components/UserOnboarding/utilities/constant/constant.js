@@ -7,3 +7,7 @@ export const WRONG_LASTNAME = "Please Enter Correct Last Name";
 export const userDetailsWelcomeText = "Welcome,";
 export const userDetailsLocationText = " What's your location? ";
 export const userDrtailsSmallText = "See people, jobs, and news in your area.";
+
+export const profielText="Your profile helps you discover new people and opportunities"
+
+export const employmentType=["Select one","Full-time","Part-time","Self-Employed","Freelance","Internship","Traniee"]

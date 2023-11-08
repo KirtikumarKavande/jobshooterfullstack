@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import UserDetailsContainer from "../utilities/style/UserDetailsContainer";
-import Input from "../utilities/style/Input";
 import Button from "../../utilities/styles/Button";
 import SearchAndSelect from "../utilities/style/SearchAndSelect";
 import { Country, State, City } from "country-state-city";
@@ -8,12 +7,12 @@ import useInput from "../../hooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateLocationDetails } from "../../store/LocationSlice";
-import usePostDataToDB  from "../../hooks/usePostDataToDB"
+import usePostDataToDB from "../../hooks/usePostDataToDB";
+import toast from "react-hot-toast";
 const LocationDetails = () => {
-
   const navigate = useNavigate();
-  const postDataToDB=usePostDataToDB()
-  const locationDetails= useSelector(store=>store.location)
+  const postDataToDB = usePostDataToDB();
+  const locationDetails = useSelector((store) => store.location);
   const [isShowSuggestionForCountry, setIsShowSuggestionForCountry] =
     useState(false);
   const [isShowSuggestionForState, setIsShowSuggestionForState] =
@@ -48,8 +47,12 @@ const LocationDetails = () => {
     setIsShowSuggestionForCity(false);
   };
 
-  const handleLocationData = () => {
-    postDataToDB('location',locationDetails)
+  const handleLocationData = async () => {
+    const data = await postDataToDB("location", locationDetails);
+    if (data.success) {
+    } else {
+      toast.error(data.message);
+    }
   };
   return (
     <UserDetailsContainer>

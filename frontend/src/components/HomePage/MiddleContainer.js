@@ -2,20 +2,30 @@ import React from "react";
 import IntroText from "./IntroText";
 import Email from "./Email";
 import Password from "./Password";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../utilities/styles/Button";
 import { HOMEPAGE_IMAGE_URL } from "../utilities/constant/Home/homePageConstant";
 import useInput from "../hooks/useInput";
 import usePostDataToDB from "../hooks/usePostDataToDB";
 import toast from "react-hot-toast";
+import useGetDataFromDB from "../hooks/useGetDataFromDB";
 const MiddleContainer = () => {
   const { userInput, onChange } = useInput();
   const postDataToDB = usePostDataToDB();
+  const getDataFromDB = useGetDataFromDB();
+  const navigate = useNavigate();
 
   const handleSignToAccount = async () => {
     const res = await postDataToDB(`signin`, userInput);
     if (res.success) {
       toast.success(res.message);
+
+      const locationResponse = await getDataFromDB("location");
+      console.log("locationResponse", locationResponse);
+      if (locationResponse.success) {
+      } else {
+        navigate("/onboarding/location");
+      }
     } else {
       toast.error(res.message);
     }
