@@ -15,6 +15,12 @@ const userDetails = new Schema({
   jobTitle: { type: String },
   employmentType: { type: String },
   recentCompany: { type: String },
+  clgName:{ type: String },
+  collegeStartYear: { type: String },
+  collegeEndYear: { type: String },
+  birthDate: { type: String }
+
+  
 });
 
 module.exports = mongoose.model("userDetails", userDetails);

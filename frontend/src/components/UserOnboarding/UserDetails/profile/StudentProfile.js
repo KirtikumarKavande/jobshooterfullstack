@@ -11,6 +11,8 @@ import { PiToggleLeftFill, PiToggleRightFill } from "react-icons/pi";
 import Button from "../../../utilities/styles/Button";
 import DisableButton from "../../../utilities/styles/DisableButton";
 import useInput from "../../../hooks/useInput";
+import usePostDataToDB from "../../../hooks/usePostDataToDB";
+import toast from "react-hot-toast";
 
 const StudentProfile = (props) => {
   const { setIsIamStudent } = props;
@@ -25,7 +27,8 @@ const StudentProfile = (props) => {
     year: "",
   });
 
-  console.log("disable check ", userInput);
+  const postDataToDb = usePostDataToDB();
+
   let isDisabled = true;
 
   if (
@@ -47,6 +50,30 @@ const StudentProfile = (props) => {
   ) {
     isDisabled = false;
   }
+
+  const handleStudentProfileData = () => {
+    let birthDate = `${userInput.day}/${userInput.month}/${userInput.year}`;
+    if (userInput.endYear < userInput.startYear) {
+      toast.error("College End Year Should be gretter than Start Year");
+    } else {
+      if (!perfectAge) {
+        postDataToDb("profile", {
+          role: "student",
+          clgName: userInput.clgName,
+          collegeStartYear: userInput.startYear,
+          collegeEndYear: userInput.endYear,
+          birthDate: birthDate,
+        });
+      } else {
+        postDataToDb("profile", {
+          role: "student",
+          clgName: userInput.clgName,
+          collegeStartYear: userInput.startYear,
+          collegeEndYear: userInput.endYear,
+        });
+      }
+    }
+  };
   return (
     <div>
       <Input
@@ -146,6 +173,7 @@ const StudentProfile = (props) => {
         I'm not a Student
       </Button>
       <DisableButton
+        onClick={handleStudentProfileData}
         bgColor={"#0A66C2"}
         height={"8vh"}
         textColour={"white"}

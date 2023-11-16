@@ -34,6 +34,7 @@ const Profile = () => {
   }, [userInput.jobTitle]);
 
   const handleProfile = () => {
+
     postToDB("profile", {
       role: "professional",
       jobTitle: userInput.jobTitle,
