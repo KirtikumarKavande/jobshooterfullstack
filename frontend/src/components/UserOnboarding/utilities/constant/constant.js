@@ -11,3 +11,9 @@ export const userDrtailsSmallText = "See people, jobs, and news in your area.";
 export const profielText="Your profile helps you discover new people and opportunities"
 
 export const employmentType=["Select one","Full-time","Part-time","Self-Employed","Freelance","Internship","Traniee"]
+
+export const startYearOfCollege=1962;
+export const endYearOfCollege=2030;
+
+export const months = ["-","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+

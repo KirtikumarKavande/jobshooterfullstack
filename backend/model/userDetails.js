@@ -10,6 +10,11 @@ const userDetails = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+
+  role: { type: String },
+  jobTitle: { type: String },
+  employmentType: { type: String },
+  recentCompany: { type: String },
 });
 
 module.exports = mongoose.model("userDetails", userDetails);

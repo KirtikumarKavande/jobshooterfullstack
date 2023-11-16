@@ -14,7 +14,7 @@ const ProfileContainer = (props) => {
           </div>
         </div>
 
-        <div className=" w-70vw md:w-[60vw] md:mx-auto mx-4 lg:w-[35vw]   p-6  ">
+        <div className=" w-70vw md:w-[60vw] md:mx-auto mx-4 lg:w-[33vw]   p-6  ">
           {props.children}
         </div>
 

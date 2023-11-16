@@ -7,4 +7,6 @@ const router = express.Router();
 router.post("/location", authMiddlware.auth, userDetails.locationDetails);
 router.get("/location", authMiddlware.auth, userDetails.getlocationDetails);
 
+router.post("/profile",authMiddlware.auth, userDetails.postProfileDataToDB)
+
 module.exports = router;

@@ -15,7 +15,6 @@ const DisableButton = (props) => {
     color: textColour,
     fontSize: fontSize,
   };
-
   return (
     <button
       onClick={onClick}

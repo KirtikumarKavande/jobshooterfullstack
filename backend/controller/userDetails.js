@@ -24,9 +24,7 @@ const locationDetails = async (req, res) => {
 };
 
 const getlocationDetails = async (req, res) => {
-  
-  console.log("triggers",req.user);
-  const resData = await UserDetails.findOne({userId:req.user._id});
+  const resData = await UserDetails.findOne({ userId: req.user._id });
 
   if (resData) {
     res.status(200).json({
@@ -43,4 +41,27 @@ const getlocationDetails = async (req, res) => {
   }
 };
 
-module.exports = { locationDetails, getlocationDetails };
+const postProfileDataToDB = async (req, res, next) => {
+  try {
+    await UserDetails.findOneAndUpdate(
+      { userId: req.user._id },
+      {
+        ...req.body,
+      }
+    );
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: "Profile updated successfully",
+    });
+  } catch (err) {
+    console.log("update", err);
+    res.status(400).json({
+      success: false,
+      statusCode: 400,
+      message: "Something Went wrong",
+    });
+  }
+};
+
+module.exports = { locationDetails, getlocationDetails, postProfileDataToDB };
