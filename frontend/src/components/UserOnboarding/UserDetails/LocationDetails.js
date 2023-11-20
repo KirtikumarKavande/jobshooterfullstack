@@ -50,6 +50,7 @@ const LocationDetails = () => {
   const handleLocationData = async () => {
     const data = await postDataToDB("location", locationDetails);
     if (data.success) {
+      navigate('/onboarding/profile')
     } else {
       toast.error(data.message);
     }

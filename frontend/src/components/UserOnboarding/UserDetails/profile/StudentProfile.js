@@ -13,9 +13,11 @@ import DisableButton from "../../../utilities/styles/DisableButton";
 import useInput from "../../../hooks/useInput";
 import usePostDataToDB from "../../../hooks/usePostDataToDB";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const StudentProfile = (props) => {
   const { setIsIamStudent } = props;
+  const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
   const [perfectAge, setPerfectAge] = useState(true);
   const { userInput, onChange } = useInput({
@@ -51,13 +53,14 @@ const StudentProfile = (props) => {
     isDisabled = false;
   }
 
-  const handleStudentProfileData = () => {
+  const handleStudentProfileData = async () => {
     let birthDate = `${userInput.day}/${userInput.month}/${userInput.year}`;
     if (userInput.endYear < userInput.startYear) {
       toast.error("College End Year Should be gretter than Start Year");
     } else {
+      let profileInfo;
       if (!perfectAge) {
-        postDataToDb("profile", {
+        profileInfo = await postDataToDb("profile", {
           role: "student",
           clgName: userInput.clgName,
           collegeStartYear: userInput.startYear,
@@ -65,12 +68,15 @@ const StudentProfile = (props) => {
           birthDate: birthDate,
         });
       } else {
-        postDataToDb("profile", {
+        profileInfo = await postDataToDb("profile", {
           role: "student",
           clgName: userInput.clgName,
           collegeStartYear: userInput.startYear,
           collegeEndYear: userInput.endYear,
         });
+      }
+      if (profileInfo.success) {
+        navigate('/user/home')
       }
     }
   };

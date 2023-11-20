@@ -20,9 +20,15 @@ const MiddleContainer = () => {
     if (res.success) {
       toast.success(res.message);
 
-      const locationResponse = await getDataFromDB("location");
-      console.log("locationResponse", locationResponse);
-      if (locationResponse.success) {
+      const userDetails = await getDataFromDB("userdetails");
+      console.log("userDetails", userDetails);
+
+      if (userDetails.success) {
+        if (userDetails?.data?.profileInformation) {
+          navigate("/user/home");
+        } else {
+          navigate("/onboarding/profile");
+        }
       } else {
         navigate("/onboarding/location");
       }

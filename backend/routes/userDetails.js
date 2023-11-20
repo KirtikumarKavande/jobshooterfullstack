@@ -5,7 +5,7 @@ const userDetails = require("../controller/userDetails");
 const router = express.Router();
 
 router.post("/location", authMiddlware.auth, userDetails.locationDetails);
-router.get("/location", authMiddlware.auth, userDetails.getlocationDetails);
+router.get("/userdetails", authMiddlware.auth, userDetails.getUserDetails);
 
 router.post("/profile",authMiddlware.auth, userDetails.postProfileDataToDB)
 

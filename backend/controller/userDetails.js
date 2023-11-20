@@ -23,14 +23,15 @@ const locationDetails = async (req, res) => {
   }
 };
 
-const getlocationDetails = async (req, res) => {
+const getUserDetails = async (req, res) => {
   const resData = await UserDetails.findOne({ userId: req.user._id });
+  console.log("resData",resData)
 
   if (resData) {
     res.status(200).json({
       success: true,
       statusCode: 200,
-      message: "user location details found",
+      data: {profileInformation:!!resData.role},
     });
   } else {
     res.status(400).json({
@@ -40,6 +41,8 @@ const getlocationDetails = async (req, res) => {
     });
   }
 };
+
+
 
 const postProfileDataToDB = async (req, res, next) => {
   try {
@@ -64,4 +67,4 @@ const postProfileDataToDB = async (req, res, next) => {
   }
 };
 
-module.exports = { locationDetails, getlocationDetails, postProfileDataToDB };
+module.exports = { locationDetails, postProfileDataToDB,getUserDetails };

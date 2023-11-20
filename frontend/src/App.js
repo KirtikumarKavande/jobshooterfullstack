@@ -4,23 +4,31 @@ import Homepage from "./components/utilities/styles/Homepage";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Profile from "./components/UserOnboarding/UserDetails/profile/Profile";
+import Home from "./components/RestrictedPages/Home";
+import Cookies from "js-cookie";
 export default function App() {
+  const token = Cookies.get("token");
+  console.log("token taku", token);
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Homepage />,
     },
     {
-      path: "onboarding/signup",
+      path: "/onboarding/signup",
       element: <Signup />,
     },
     {
       path: "/onboarding/location",
-      element: <LocationDetails />,
+      element: !!token ? <LocationDetails /> : <Homepage />,
     },
     {
       path: "/onboarding/profile",
-      element: <Profile />,
+      element: !!token ? <Profile /> : <Homepage />,
+    },
+    {
+      path: "/user/home",
+      element: !!token ? <Home /> : <Homepage />,
     },
   ]);
 
