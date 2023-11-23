@@ -5,10 +5,11 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Profile from "./components/UserOnboarding/UserDetails/profile/Profile";
 import Home from "./components/RestrictedPages/Home";
-import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
 export default function App() {
-  const token = Cookies.get("token");
-  console.log("token taku", token);
+  const token = useSelector((store) => store?.userSignup?.token);
+
+  console.log("token", !!token);
   const router = createBrowserRouter([
     {
       path: "/",

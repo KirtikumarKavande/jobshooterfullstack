@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const acccessToken = require("../utilities/tokenGenration");
 
 const createUser = async (req, res) => {
+  const tokenGenration=acccessToken.genrateAccessToken(email)
   const { email, password, firstName, lastName } = req.body;
   try {
     const user = await User.findOne({ email });
@@ -25,6 +26,7 @@ const createUser = async (req, res) => {
           success: true,
           statusCode: 200,
           message: "User Created successfully",
+          token: acccessToken.genrateAccessToken(email),
         });
       });
     }
@@ -57,6 +59,7 @@ const signInUser = async (req, res) => {
             success: true,
             statusCode: 200,
             message: "Sign in Successfully",
+            token: acccessToken.genrateAccessToken(email),
           });
         } else {
           res

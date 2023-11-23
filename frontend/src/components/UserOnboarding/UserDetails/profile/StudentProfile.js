@@ -75,6 +75,7 @@ const StudentProfile = (props) => {
           collegeEndYear: userInput.endYear,
         });
       }
+      
       if (profileInfo.success) {
         navigate('/user/home')
       }

@@ -9,14 +9,19 @@ import useInput from "../hooks/useInput";
 import usePostDataToDB from "../hooks/usePostDataToDB";
 import toast from "react-hot-toast";
 import useGetDataFromDB from "../hooks/useGetDataFromDB";
+import { useDispatch } from "react-redux";
+import { showUserSignup } from "../store/UserSignupSlice";
 const MiddleContainer = () => {
   const { userInput, onChange } = useInput();
   const postDataToDB = usePostDataToDB();
   const getDataFromDB = useGetDataFromDB();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSignToAccount = async () => {
     const res = await postDataToDB(`signin`, userInput);
+
+    console.log("res data", res);
     if (res.success) {
       toast.success(res.message);
 
@@ -25,6 +30,8 @@ const MiddleContainer = () => {
 
       if (userDetails.success) {
         if (userDetails?.data?.profileInformation) {
+          console.log("component renderd");
+
           navigate("/user/home");
         } else {
           navigate("/onboarding/profile");
@@ -35,6 +42,8 @@ const MiddleContainer = () => {
     } else {
       toast.error(res.message);
     }
+    dispatch(showUserSignup({ token: res.token }));
+
   };
 
   return (

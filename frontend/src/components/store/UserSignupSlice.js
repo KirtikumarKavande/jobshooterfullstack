@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 const UserSignupSlice = createSlice({
-  initialState: { email: "", password: "", firstName: "", lastName: "" },
+  initialState: { email: "", password: "", firstName: "", lastName: "",token:Cookies.get("token")},
   name: "userSignup",
   reducers: {
     showUserSignup(state, action) {

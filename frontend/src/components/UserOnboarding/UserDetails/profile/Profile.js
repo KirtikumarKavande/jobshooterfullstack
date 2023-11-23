@@ -7,6 +7,7 @@ import DisableButton from "../../../utilities/styles/DisableButton";
 import useInput from "../../../hooks/useInput";
 import StudentProfile from "./StudentProfile";
 import usePostDataToDB from "../../../hooks/usePostDataToDB";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { userInput, onChange } = useInput({
@@ -17,6 +18,7 @@ const Profile = () => {
   const [isIamStudent, setIsIamStudent] = useState(false);
   const [isShowRestForm, setIsShowRestForm] = useState(false);
   const postToDB = usePostDataToDB();
+   const navigate=useNavigate()
 
   let isDisabled = true;
   if (
@@ -33,14 +35,17 @@ const Profile = () => {
     }
   }, [userInput.jobTitle]);
 
-  const handleProfile = () => {
+  const handleProfile = async() => {
 
-    postToDB("profile", {
+   const response= await postToDB("profile", {
       role: "professional",
       jobTitle: userInput.jobTitle,
       employmentType: userInput.employmentType,
       recentCompany: userInput.recentCompany,
     });
+    if (response.success) {
+      navigate('/user/home')
+    }
   };
   return (
     <ProfileContainer>
