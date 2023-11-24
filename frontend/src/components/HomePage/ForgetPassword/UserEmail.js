@@ -7,9 +7,11 @@ import usePostDataToDB from "../../hooks/usePostDataToDB";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import CodeVerification from "./CodeVerification";
+import { useNavigate } from "react-router-dom";
 
 const UserEmail = () => {
   const { userInput, onChange } = useInput({ email: "" });
+  const navigate=useNavigate()
   const postDataToDB = usePostDataToDB();
   const [isVerifyOtp, setIsVerifyOtp] = useState(false);
   const handleForgetPassword = async () => {
@@ -43,10 +45,10 @@ const UserEmail = () => {
           >
             Next
           </Button>
-          <button className=" w-full hover:underline mt-2">Back</button>
+          <button className=" w-full hover:underline mt-2"onClick={()=>{navigate('/')}}>Back</button>
         </ForgetPasswordContainer>
       ) : (
-        <CodeVerification />
+        <CodeVerification userEmail={userInput.email} setIsVerifyOtp={setIsVerifyOtp} />
       )}
     </>
   );

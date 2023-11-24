@@ -5,30 +5,30 @@ import usePostDataToDB from "../../hooks/usePostDataToDB";
 import useInput from "../../hooks/useInput";
 import { passwordRegex } from "../../UserOnboarding/utilities/constant/Regex";
 import { WRONG_PASSWORD } from "../../UserOnboarding/utilities/constant/constant";
-import toast from 'react-hot-toast'
-import {useNavigate} from'react-router-dom'
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const NewPasswordModel = () => {
-
   const postDataToDB = usePostDataToDB();
   const [showError, setShowError] = useState("");
   const { userInput, onChange } = useInput({
     password: "",
     confirmPassword: "",
   });
-const navigate=useNavigate()
-  const handlePassword = async() => {
+  const navigate = useNavigate();
+  const handlePassword = async () => {
     if (userInput.password !== userInput.confirmPassword) {
       setShowError("Password do Not Match");
     } else if (!passwordRegex.test(userInput.password)) {
       setShowError(WRONG_PASSWORD);
     } else {
-     const res=await postDataToDB("newPassword", {password:userInput.password});
-     if(res.success)
-     {
-      toast.success(res.message)
-      navigate('/')
-     }
+      const res = await postDataToDB("newPassword", {
+        password: userInput.password,
+      });
+      if (res.success) {
+        toast.success(res.message);
+        navigate("/");
+      }
     }
   };
 
@@ -42,15 +42,18 @@ const navigate=useNavigate()
             name="password"
             onChange={onChange}
             type="text"
-            onFocus={()=>{setShowError("")}}
+            onFocus={() => {
+              setShowError("");
+            }}
           />
           <Input
             label="Retype-Password"
             name="confirmPassword"
             onChange={onChange}
             type="password"
-            onFocus={()=>{setShowError("")}}
-
+            onFocus={() => {
+              setShowError("");
+            }}
           />
           <Button
             bgColor="#0A66C2"
@@ -60,11 +63,7 @@ const navigate=useNavigate()
           >
             Confirm
           </Button>
-          { 
-            <p className="text-red-600 pt-2 text-center">
-             {showError}
-            </p>
-          }
+          {<p className="text-red-600 pt-2 text-center">{showError}</p>}
         </div>
       </div>
     </div>
