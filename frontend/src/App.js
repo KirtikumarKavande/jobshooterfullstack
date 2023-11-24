@@ -6,10 +6,11 @@ import { Toaster } from "react-hot-toast";
 import Profile from "./components/UserOnboarding/UserDetails/profile/Profile";
 import Home from "./components/RestrictedPages/Home";
 import { useSelector } from "react-redux";
+import UserEmail from "./components/HomePage/ForgetPassword/UserEmail";
+import CodeVerification from "./components/HomePage/ForgetPassword/CodeVerification";
 export default function App() {
   const token = useSelector((store) => store?.userSignup?.token);
 
-  console.log("token", !!token);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -31,6 +32,13 @@ export default function App() {
       path: "/user/home",
       element: !!token ? <Home /> : <Homepage />,
     },
+    {
+      path: "/forgetpassword",
+      element:<CodeVerification/>,
+    },
+
+
+
   ]);
 
   return (

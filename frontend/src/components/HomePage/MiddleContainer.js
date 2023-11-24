@@ -21,16 +21,13 @@ const MiddleContainer = () => {
   const handleSignToAccount = async () => {
     const res = await postDataToDB(`signin`, userInput);
 
-    console.log("res data", res);
     if (res.success) {
       toast.success(res.message);
 
       const userDetails = await getDataFromDB("userdetails");
-      console.log("userDetails", userDetails);
 
       if (userDetails.success) {
         if (userDetails?.data?.profileInformation) {
-          console.log("component renderd");
 
           navigate("/user/home");
         } else {
@@ -51,7 +48,7 @@ const MiddleContainer = () => {
       <IntroText />
       <Email onChange={onChange} name="email" />
       <Password onChange={onChange} name="password" />
-      <div className="font-bold text-base mt-3 text-blue-600">
+      <div className="font-bold text-base mt-3 text-blue-600 cursor-pointer " onClick={()=>{navigate('/forgetpassword')}}>
         Forget Password?
       </div>
       <Button

@@ -25,7 +25,6 @@ const locationDetails = async (req, res) => {
 
 const getUserDetails = async (req, res) => {
   const resData = await UserDetails.findOne({ userId: req.user._id });
-  console.log("resData",resData)
 
   if (resData) {
     res.status(200).json({
