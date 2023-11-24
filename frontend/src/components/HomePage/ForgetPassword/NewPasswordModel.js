@@ -5,22 +5,30 @@ import usePostDataToDB from "../../hooks/usePostDataToDB";
 import useInput from "../../hooks/useInput";
 import { passwordRegex } from "../../UserOnboarding/utilities/constant/Regex";
 import { WRONG_PASSWORD } from "../../UserOnboarding/utilities/constant/constant";
+import toast from 'react-hot-toast'
+import {useNavigate} from'react-router-dom'
 
 const NewPasswordModel = () => {
+
   const postDataToDB = usePostDataToDB();
   const [showError, setShowError] = useState("");
   const { userInput, onChange } = useInput({
     password: "",
     confirmPassword: "",
   });
-
-  const handlePassword = () => {
+const navigate=useNavigate()
+  const handlePassword = async() => {
     if (userInput.password !== userInput.confirmPassword) {
       setShowError("Password do Not Match");
     } else if (!passwordRegex.test(userInput.password)) {
       setShowError(WRONG_PASSWORD);
     } else {
-      postDataToDB("newPassword", userInput);
+     const res=await postDataToDB("newPassword", {password:userInput.password});
+     if(res.success)
+     {
+      toast.success(res.message)
+      navigate('/')
+     }
     }
   };
 
