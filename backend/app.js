@@ -7,6 +7,7 @@ const userDetails = require("./routes/userDetails");
 
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
+const forgetPasswordRoutes=require('./routes/forgetPassword')
 dotenv.config();
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 app.use(userRoutes);
 app.use(userDetails);
+app.use(forgetPasswordRoutes)
 
 
 mongoose

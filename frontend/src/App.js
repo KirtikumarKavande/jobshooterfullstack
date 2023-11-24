@@ -7,7 +7,6 @@ import Profile from "./components/UserOnboarding/UserDetails/profile/Profile";
 import Home from "./components/RestrictedPages/Home";
 import { useSelector } from "react-redux";
 import UserEmail from "./components/HomePage/ForgetPassword/UserEmail";
-import CodeVerification from "./components/HomePage/ForgetPassword/CodeVerification";
 export default function App() {
   const token = useSelector((store) => store?.userSignup?.token);
 
@@ -34,7 +33,7 @@ export default function App() {
     },
     {
       path: "/forgetpassword",
-      element:<CodeVerification/>,
+      element:<UserEmail/>,
     },
 
 
