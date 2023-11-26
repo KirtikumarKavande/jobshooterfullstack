@@ -7,6 +7,7 @@ import Profile from "./components/UserOnboarding/UserDetails/profile/Profile";
 import Home from "./components/RestrictedPages/Home";
 import { useSelector } from "react-redux";
 import UserEmail from "./components/HomePage/ForgetPassword/UserEmail";
+import SignIn from "./components/Signin/SignIn";
 export default function App() {
   const token = useSelector((store) => store?.userSignup?.token);
 
@@ -16,9 +17,14 @@ export default function App() {
       element: <Homepage />,
     },
     {
+      path: "/signin",
+      element: <SignIn />,
+    },
+    {
       path: "/onboarding/signup",
       element: <Signup />,
     },
+  
     {
       path: "/onboarding/location",
       element: !!token ? <LocationDetails /> : <Homepage />,

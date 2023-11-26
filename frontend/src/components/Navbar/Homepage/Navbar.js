@@ -39,7 +39,7 @@ const Navbar = () => {
             className=" hover:bg-gray-100 text-gray-500 font-bold py-1 px-5 rounded-full"
           >Join now</button>
 
-          <button className=" hover:bg-gray-100 text-blue-500 border border-blue-500 font-semibold py-1 px-5 rounded-full ">
+          <button className=" hover:bg-gray-100 text-blue-500 border border-blue-500 font-semibold py-1 px-5 rounded-full " onClick={()=>{navigate('/signin')}}>
             Sign in
           </button>
         </div>
