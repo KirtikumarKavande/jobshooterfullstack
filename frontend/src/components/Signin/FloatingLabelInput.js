@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 
-const FloatingLabelPassword = ({ label, placeholder, type }) => {
-  const [value, setValue] = useState("");
+const FloatingLabelPassword = ({
+  label,
+  placeholder,
+  type,
+  onChange,
+  inputTyped,
+  name
+}) => {
+  //   const [inputTyped, setValue] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleChange = (e) => {
-    setValue(e.target.value);
-  };
+  //   const handleChange = (e) => {
+  //     setValue(e.target.value);
+  //   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -18,14 +25,17 @@ const FloatingLabelPassword = ({ label, placeholder, type }) => {
         className="w-full border  border-black focus:border-blue-700 focus:border-2 focus:outline-none pt-6 px-3 rounded-md"
         type={showPassword ? "text" : type}
         placeholder={placeholder}
-        value={value}
-        onChange={handleChange}
+        value={inputTyped}
+        onChange={onChange}
         autoComplete="off"
+        name={name}
       />
-     
+
       <label
         className={`absolute left-3 transition-all duration-300 ${
-          value ? "text-blue-800 text-base top-1" : "text-black text-base top-4"
+          inputTyped
+            ? "text-blue-800 text-base top-1"
+            : "text-black text-base top-4"
         }`}
       >
         {label}

@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import useGetDataFromDB from "../hooks/useGetDataFromDB";
 import { useDispatch } from "react-redux";
 import { showUserSignup } from "../store/UserSignupSlice";
+import { handleSignIn } from "../utilities/Functions/handleSignIn";
 const MiddleContainer = () => {
   const { userInput, onChange } = useInput();
   const postDataToDB = usePostDataToDB();
@@ -19,27 +20,28 @@ const MiddleContainer = () => {
   const dispatch = useDispatch();
 
   const handleSignToAccount = async () => {
-    const res = await postDataToDB(`signin`, userInput);
+    // const res = await postDataToDB(`signin`, userInput);
 
-    if (res.success) {
-      toast.success(res.message);
+    // if (res.success) {
+    //   toast.success(res.message);
 
-      const userDetails = await getDataFromDB("userdetails");
+    //   const userDetails = await getDataFromDB("userdetails");
 
-      if (userDetails.success) {
-        if (userDetails?.data?.profileInformation) {
+    //   if (userDetails.success) {
+    //     if (userDetails?.data?.profileInformation) {
 
-          navigate("/user/home");
-        } else {
-          navigate("/onboarding/profile");
-        }
-      } else {
-        navigate("/onboarding/location");
-      }
-    } else {
-      toast.error(res.message);
-    }
-    dispatch(showUserSignup({ token: res.token }));
+    //       navigate("/user/home");
+    //     } else {
+    //       navigate("/onboarding/profile");
+    //     }
+    //   } else {
+    //     navigate("/onboarding/location");
+    //   }
+    // } else {
+    //   toast.error(res.message);
+    // }
+    // dispatch(showUserSignup({ token: res.token }));
+    await handleSignIn(postDataToDB, getDataFromDB, navigate, dispatch, userInput);
 
   };
 
@@ -68,7 +70,7 @@ const MiddleContainer = () => {
         Continue with Google
       </Button>
 
-      <Button bgColor={"#FFFFFF"} height={"8vh"} width={30} border={"black"}>
+      <Button bgColor={"#FFFFFF"} height={"8vh"} width={30} border={"black"} onClick={()=>{navigate('/onboarding/signup')}}>
         New to Job? Join Now
       </Button>
       <img
