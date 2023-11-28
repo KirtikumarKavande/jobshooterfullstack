@@ -15,6 +15,7 @@ import Error from "../utilities/style/Error";
 import { useDispatch, useSelector } from "react-redux";
 import { showUserSignup } from "../../store/UserSignupSlice";
 import usePostDataToDB from "../../hooks/usePostDataToDB";
+import handleSignup from "../../utilities/Functions/handleSignup";
 
 const NameSurnameForm = () => {
   const dispatch = useDispatch();
@@ -28,31 +29,42 @@ const NameSurnameForm = () => {
   });
   const navigate = useNavigate();
 
-  const NavigateToLocationPage = async () => {
-    if (!nameRegex.test(userInput.firstName)) {
-      setShowError({ firstNameError: WRONG_FIRSTNAME });
-    } else if (!nameRegex.test(userInput.lastName)) {
-      setShowError({ lastNameError: WRONG_LASTNAME });
-    } else {
-      dispatch(showUserSignup(userInput));
-      localStorage.setItem("jobshooterName", userInput.firstName);
 
-      const res = await postDatatoDB("createuser", {
-        ...signUpUserDetails,
-        ...userInput,
-      });
-      if (res.success) {
-        toast.success(res.message);
-        navigate("/onboarding/location");
-      } else {
-        toast.error(res.message);
-      }
-    }
+  const NavigateToLocationPage = async () => {
+    // if (!nameRegex.test(userInput.firstName)) {
+    //   setShowError({ firstNameError: WRONG_FIRSTNAME });
+    // } else if (!nameRegex.test(userInput.lastName)) {
+    //   setShowError({ lastNameError: WRONG_LASTNAME });
+    // } else {
+    //   dispatch(showUserSignup(userInput));
+    //   localStorage.setItem("jobshooterName", userInput.firstName);
+
+    //   const res = await postDatatoDB("createuser", {
+    //     ...signUpUserDetails,
+    //     ...userInput,
+    //   });
+    //   if (res.success) {
+    //     toast.success(res.message);
+    //     navigate("/onboarding/location");
+    //   } else {
+    //     toast.error(res.message);
+    //   }
+    // dispatch(showUserSignup({ token: res.token }));
+
+    // }
+
+   await handleSignup(
+      userInput,
+      setShowError,
+      signUpUserDetails,
+      dispatch,
+      postDatatoDB,
+      navigate
+    );
   };
   useEffect(() => {
     setShowError({ firstNameError: "", lastNameError: "" });
-  }, [userInput.firstName, userInput.lastName]);
-
+  }, [userInput?.firstName, userInput?.lastName]);
   return (
     <SignUpContainer>
       <Input

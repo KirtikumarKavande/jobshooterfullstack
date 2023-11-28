@@ -23,7 +23,7 @@ const SignupForm = (props) => {
   const { setIsShowNameSurnameForm } = props;
 
   const { userInput, onChange } = useInput({});
-  const addNameSurname = () => {
+  const addEmailPassword = () => {
     if (!emailRegex.test(userInput.email)) {
       setShowError({ emaiError: WRONG_EMAIL });
     } else if (!passwordRegex.test(userInput.password)) {
@@ -58,7 +58,7 @@ const SignupForm = (props) => {
           bgColor={"#0A66C2"}
           height={"7vh"}
           textColour={"white"}
-          onClick={addNameSurname}
+          onClick={addEmailPassword}
         >
           Agree & Join
         </Button>

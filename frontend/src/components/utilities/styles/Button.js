@@ -18,6 +18,7 @@ const Button = (props) => {
     height: height,
     color: textColour,
     fontSize: fontSize,
+    
   };
 
   return (

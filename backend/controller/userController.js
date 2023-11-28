@@ -24,12 +24,14 @@ const createUser = async (req, res) => {
         res.status(200).json({
           success: true,
           statusCode: 200,
+
           message: "User Created successfully",
           token: acccessToken.genrateAccessToken(email),
         });
       });
     }
   } catch (err) {
+    console.log(err);
     res.status(400).json({
       success: false,
       statusCode: 400,

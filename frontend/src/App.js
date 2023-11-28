@@ -8,6 +8,7 @@ import Home from "./components/RestrictedPages/Home";
 import { useSelector } from "react-redux";
 import UserEmail from "./components/HomePage/ForgetPassword/UserEmail";
 import SignIn from "./components/Signin/SignIn";
+import BasicDeatils from "./components/talentAcquisition/BasicDeatils";
 export default function App() {
   const token = useSelector((store) => store?.userSignup?.token);
 
@@ -40,6 +41,10 @@ export default function App() {
     {
       path: "/forgetpassword",
       element:<UserEmail/>,
+    },
+    {
+      path: "/talent/basic",
+      element:<BasicDeatils/>,
     },
 
 
