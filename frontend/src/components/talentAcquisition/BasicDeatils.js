@@ -10,13 +10,19 @@ import { useDispatch } from "react-redux";
 import usePostDataToDB from "../hooks/usePostDataToDB";
 import { useNavigate } from "react-router-dom";
 import Error from "../UserOnboarding/utilities/style/Error";
-import { emailRegex, passwordRegex } from "../UserOnboarding/utilities/constant/Regex";
-import { WRONG_EMAIL, WRONG_PASSWORD } from "../UserOnboarding/utilities/constant/constant";
+import {
+  emailRegex,
+  passwordRegex,
+} from "../UserOnboarding/utilities/constant/Regex";
+import {
+  WRONG_EMAIL,
+  WRONG_PASSWORD,
+} from "../UserOnboarding/utilities/constant/constant";
 
 const BasicDeatils = () => {
-  const signUpUserDetails={}
+  const signUpUserDetails = {};
 
-  const { userInput, onChange } = useInput({ firstName: "", lastName: "" });
+  const { userInput, onChange } = useInput({ firstName: "", lastName: "",canPostJob:true });
   const navigate = useNavigate();
 
   const postDatatoDB = usePostDataToDB();
@@ -24,33 +30,30 @@ const BasicDeatils = () => {
   const [showError, setShowError] = useState({
     firstNameError: "",
     lastNameError: "",
-    emaiError:"",
-    passwordError:''
+    emaiError: "",
+    passwordError: "",
   });
-console.log("userInput",userInput)
-console.log("userInput",showError)
+  console.log("userInput", userInput);
+  console.log("userInput", showError);
 
   const dispatch = useDispatch();
   const handlesignupAccount = async () => {
-
     if (!emailRegex.test(userInput.email)) {
       setShowError({ emaiError: WRONG_EMAIL });
     } else if (!passwordRegex.test(userInput.password)) {
       setShowError({ passwordError: WRONG_PASSWORD });
     } else {
-      setShowError("")
+      setShowError("");
       await handleSignup(
         userInput,
         setShowError,
         signUpUserDetails,
-  
+
         dispatch,
         postDatatoDB,
-        navigate,
+        navigate
       );
     }
-    
-    
   };
   return (
     <>
@@ -62,9 +65,9 @@ console.log("userInput",showError)
         <CardContainer>
           <Input label="First name" onChange={onChange} name="firstName" />
           {!!showError.firstNameError && (
-            <Error errorMessage={showError.firstNameError}  />
+            <Error errorMessage={showError.firstNameError} />
           )}
-          <Input label="Last name" onChange={onChange} name="lastName"/>
+          <Input label="Last name" onChange={onChange} name="lastName" />
           {!!showError.lastNameError && (
             <Error errorMessage={showError.lastNameError} />
           )}
@@ -78,7 +81,7 @@ console.log("userInput",showError)
             onChange={onChange}
             name="password"
           />
-           {!!showError.passwordError && (
+          {!!showError.passwordError && (
             <Error errorMessage={showError.passwordError} />
           )}
           <PrivacyAndCookie />

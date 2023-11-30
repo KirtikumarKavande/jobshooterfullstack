@@ -12,17 +12,16 @@ function generateRandom6DigitOTP() {
   const randomOTP = Math.floor(Math.random() * (max - min + 1)) + min;
   return randomOTP.toString();
 }
-let emailOfUser=""
-
-
+let emailOfUser = "";
 let otp;
+
 const verifyEmail = async (req, res, next) => {
   try {
     const { email } = req.body;
     const user = await User.findOne({ email });
     if (user) {
       req.user = user;
-      emailOfUser=email
+      emailOfUser = email;
       next();
     } else {
       res
@@ -38,6 +37,7 @@ const verifyEmail = async (req, res, next) => {
   }
 };
 
+
 const emailForOtp = async (req, res, next) => {
   try {
     otp = generateRandom6DigitOTP().trim();
@@ -46,8 +46,9 @@ const emailForOtp = async (req, res, next) => {
     const sender = { email: "kirtikumar0005@gmail.com", name: "JobShooter" };
     const toEmail = [{ email: req.user.email }];
     const htmlContent = `OTP for your account is ${otp}.`;
+    
     new SendinblueApiV3Sdk.TransactionalEmailsApi()
-      .sendTransacEmail({
+    .sendTransacEmail({
         subject: subject,
         sender: sender,
 
@@ -104,10 +105,7 @@ const newPassword = async (req, res) => {
   const { password } = req.body;
   try {
     bcrypt.hash(password, 10, async (err, hash) => {
-      await User.findOneAndUpdate(
-        { email: emailOfUser },
-        { password: hash }
-      );
+      await User.findOneAndUpdate({ email: emailOfUser }, { password: hash });
 
       res.status(200).json({
         success: true,

@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { updateLocationDetails } from "../../store/LocationSlice";
 import usePostDataToDB from "../../hooks/usePostDataToDB";
 import toast from "react-hot-toast";
+import preventGoingBack from "../../utilities/Functions/preventGoingBack";
 const LocationDetails = () => {
   const navigate = useNavigate();
   const postDataToDB = usePostDataToDB();
@@ -50,7 +51,9 @@ const LocationDetails = () => {
   const handleLocationData = async () => {
     const data = await postDataToDB("location", locationDetails);
     if (data.success) {
+
       navigate('/onboarding/profile')
+preventGoingBack("/onboarding/profile")
     } else {
       toast.error(data.message);
     }

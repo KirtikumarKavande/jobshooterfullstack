@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const acccessToken = require("../utilities/tokenGenration");
 
 const createUser = async (req, res) => {
-  const { email, password, firstName, lastName } = req.body;
+  const { email, password, firstName, lastName,canPostJob } = req.body;
   try {
     const user = await User.findOne({ email });
 
@@ -16,6 +16,7 @@ const createUser = async (req, res) => {
           password: hash,
           firstName,
           lastName,
+          canPostJob
         });
         await user.save();
 

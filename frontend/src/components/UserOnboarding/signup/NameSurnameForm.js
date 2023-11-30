@@ -7,10 +7,7 @@ import useInput from "../../hooks/useInput";
 import { useNavigate } from "react-router-dom";
 import { nameRegex } from "../utilities/constant/Regex";
 import { toast } from "react-hot-toast";
-import {
-  WRONG_FIRSTNAME,
-  WRONG_LASTNAME,
-} from "../utilities/constant/constant";
+
 import Error from "../utilities/style/Error";
 import { useDispatch, useSelector } from "react-redux";
 import { showUserSignup } from "../../store/UserSignupSlice";
