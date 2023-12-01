@@ -26,7 +26,7 @@ export default function App() {
       path: "/onboarding/signup",
       element: <Signup />,
     },
-  
+
     {
       path: "/onboarding/location",
       element: !!token ? <LocationDetails /> : <Homepage />,
@@ -38,22 +38,25 @@ export default function App() {
     {
       path: "/user/home",
       element: !!token ? <Home /> : <Homepage />,
+      children: [
+        {
+          path: "/user/home/jobs",
+          element: <Job />,
+        },
+      ],
     },
     {
       path: "/forgetpassword",
-      element:<UserEmail/>,
+      element: <UserEmail />,
     },
     {
       path: "/talent/basic",
-      element:<BasicDeatils/>,
+      element: <BasicDeatils />,
     },
     {
       path: "/Job",
-      element:<Job/>,
+      element: <Job />,
     },
-
-
-
   ]);
 
   return (

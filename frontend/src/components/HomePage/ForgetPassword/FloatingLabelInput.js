@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 const FloatingLabelInput = (props) => {
     const {label,onChange,userInput,name}=props
-    console.log("userInput",userInput)
   const [focused, setFocused] = useState(false);
 
   const handleFocus = () => {

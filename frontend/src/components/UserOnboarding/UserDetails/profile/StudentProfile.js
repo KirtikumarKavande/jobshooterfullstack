@@ -14,6 +14,7 @@ import useInput from "../../../hooks/useInput";
 import usePostDataToDB from "../../../hooks/usePostDataToDB";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import preventGoingBack from "../../../utilities/Functions/preventGoingBack";
 
 const StudentProfile = (props) => {
   const { setIsIamStudent } = props;
@@ -77,7 +78,9 @@ const StudentProfile = (props) => {
       }
       
       if (profileInfo.success) {
-        navigate('/user/home')
+        navigate('/user/home/jobs')
+        preventGoingBack("/user/home/jobs")
+
       }
     }
   };

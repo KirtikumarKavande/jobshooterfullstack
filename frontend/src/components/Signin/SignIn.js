@@ -26,7 +26,6 @@ const SignIn = () => {
       userInput
     );
   };
-  console.log("kirtikumar", userInput);
   return (
     <>
       <SignUpContainer>

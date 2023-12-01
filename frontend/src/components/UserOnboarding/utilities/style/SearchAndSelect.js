@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateLocationDetails } from "../../../store/LocationSlice";
-// import { showUserDetails } from "../../../store/UserOnBoardSlice";
 
 const SearchAndSelect = (props) => {
   const {
@@ -20,7 +19,6 @@ const SearchAndSelect = (props) => {
     setIsShowSuggestion,
     setCode,
     userInput,
-    onBlur,
   } = props;
   const [searchResult, setSearchResult] = useState([]);
   const [cursorOnIndex, setCursorOnIndex] = useState(0);

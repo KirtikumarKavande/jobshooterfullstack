@@ -1,6 +1,7 @@
 
 import toast from "react-hot-toast";
 import { showUserSignup } from "../../store/UserSignupSlice";
+import preventGoingBack from "./preventGoingBack";
 
 export const handleSignIn = async (postDataToDB, getDataFromDB, navigate, dispatch, userInput) => {
     const res = await postDataToDB(`signin`, userInput);
@@ -12,7 +13,8 @@ export const handleSignIn = async (postDataToDB, getDataFromDB, navigate, dispat
   
       if (userDetails.success) {
         if (userDetails?.data?.profileInformation) {
-          navigate("/user/home");
+          navigate("/user/home/jobs");
+          preventGoingBack("/user/home/jobs")
         } else {
           navigate("/onboarding/profile");
         }

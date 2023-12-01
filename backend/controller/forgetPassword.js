@@ -37,7 +37,6 @@ const verifyEmail = async (req, res, next) => {
   }
 };
 
-
 const emailForOtp = async (req, res, next) => {
   try {
     otp = generateRandom6DigitOTP().trim();
@@ -46,9 +45,9 @@ const emailForOtp = async (req, res, next) => {
     const sender = { email: "kirtikumar0005@gmail.com", name: "JobShooter" };
     const toEmail = [{ email: req.user.email }];
     const htmlContent = `OTP for your account is ${otp}.`;
-    
+
     new SendinblueApiV3Sdk.TransactionalEmailsApi()
-    .sendTransacEmail({
+      .sendTransacEmail({
         subject: subject,
         sender: sender,
 

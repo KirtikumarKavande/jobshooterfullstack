@@ -8,6 +8,7 @@ import useInput from "../../../hooks/useInput";
 import StudentProfile from "./StudentProfile";
 import usePostDataToDB from "../../../hooks/usePostDataToDB";
 import { useNavigate } from "react-router-dom";
+import preventGoingBack from "../../../utilities/Functions/preventGoingBack";
 
 const Profile = () => {
   const { userInput, onChange } = useInput({
@@ -44,7 +45,9 @@ const Profile = () => {
       recentCompany: userInput.recentCompany,
     });
     if (response.success) {
-      navigate('/user/home')
+      navigate('/user/homejobs')
+      preventGoingBack("/user/home/jobs")
+
     }
   };
   return (

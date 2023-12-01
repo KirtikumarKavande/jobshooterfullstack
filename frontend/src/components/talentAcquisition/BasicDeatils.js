@@ -33,9 +33,7 @@ const BasicDeatils = () => {
     emaiError: "",
     passwordError: "",
   });
-  console.log("userInput", userInput);
-  console.log("userInput", showError);
-
+ 
   const dispatch = useDispatch();
   const handlesignupAccount = async () => {
     if (!emailRegex.test(userInput.email)) {

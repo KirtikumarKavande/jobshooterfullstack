@@ -15,7 +15,6 @@ const handleSignup = async (
   postDatatoDB,
   navigate
 ) => {
-  console.log("userInput1",userInput);
   if (!nameRegex.test(userInput.firstName)) {
     setShowError({ firstNameError: WRONG_FIRSTNAME });
   } else if (!nameRegex.test(userInput.lastName)) {
@@ -24,12 +23,10 @@ const handleSignup = async (
     dispatch(showUserSignup(userInput));
     localStorage.setItem("jobshooterName", userInput.firstName);
 
-    console.log("userInput2",userInput)
     const res = await postDatatoDB("createuser", {
       ...signUpUserDetails,
       ...userInput,
     });
-    console.log("response", res);
     if (res.success) {
       toast.success(res.message);
       navigate("/onboarding/location");
