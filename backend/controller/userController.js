@@ -43,7 +43,6 @@ const createUser = async (req, res) => {
 
 const signInUser = async (req, res) => {
   const { email, password } = req.body;
-  console.log(email, password, typeof req.query.admin);
 
   try {
     const user = await User.findOne({ email });
