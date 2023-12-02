@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const acccessToken = require("../utilities/tokenGenration");
 
 const createUser = async (req, res) => {
-  const { email, password, firstName, lastName,canPostJob } = req.body;
+  const { email, password, firstName, lastName, canPostJob } = req.body;
   try {
     const user = await User.findOne({ email });
 
@@ -16,7 +16,7 @@ const createUser = async (req, res) => {
           password: hash,
           firstName,
           lastName,
-          canPostJob
+          canPostJob,
         });
         await user.save();
 
@@ -43,6 +43,8 @@ const createUser = async (req, res) => {
 
 const signInUser = async (req, res) => {
   const { email, password } = req.body;
+  console.log(email, password, typeof req.query.admin);
+
   try {
     const user = await User.findOne({ email });
     if (!user) {
@@ -50,12 +52,15 @@ const signInUser = async (req, res) => {
         .status(403)
         .json({ success: false, statusCode: 403, message: "User Not Found" });
     } else {
-      bcrypt.compare(password, user.password, (err, result) => {
+      bcrypt.compare(password, user.password, async (err, result) => {
         if (err) {
           throw new Error("something went wrong");
         }
 
         if (result === true) {
+          if (req.query.admin === "true") {
+            await User.findOneAndUpdate({ email: email }, { canPostJob: true });
+          }
           res.cookie("token", acccessToken.genrateAccessToken(email));
           res.status(200).json({
             success: true,

@@ -45,7 +45,7 @@ const JobSearchContainer = (props) => {
               <label className="text-base font-semibold">Job Title</label>
               <input
                 type="text"
-                className="border-2 rounded-md w-full p-1 border-gray-600 h-10 mt-2 focus:border-blue-600"
+                className=" border-2 rounded-md w-full p-1 border-gray-400 h-10 mt-2 focus:border-1 focus:border-blue-600 "
                 // onChange={(e)=>{setSearchResult(e.target.value)}}
               />
             </div>
@@ -83,7 +83,7 @@ const JobSearchContainer = (props) => {
               <label className="text-base font-semibold">Location</label>
               <input
                 type="text"
-                className="border-2 rounded-md w-full p-1 border-gray-600 h-10 mt-2 focus:border-blue-600"
+                className="border-2 rounded-md w-full p-1 border-gray-400 h-10 mt-2 focus:border-blue-600"
                 // onChange={(e)=>{setSearchResult(e.target.value)}}
               />
             </div>
@@ -103,7 +103,7 @@ const JobSearchContainer = (props) => {
               <label className="text-base font-semibold">Skills(Max 5 skills)</label>
               <input
                 type="text"
-                className="border-2 rounded-md w-full p-1 border-gray-600 h-10 mt-2 focus:border-blue-600"
+                className="border-2 rounded-md w-full p-1 border-gray-400 h-10 mt-2 focus:border-blue-600"
                 // onChange={(e)=>{setSearchResult(e.target.value)}}
               />
             </div>

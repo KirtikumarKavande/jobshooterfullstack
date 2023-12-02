@@ -10,6 +10,7 @@ import UserEmail from "./components/HomePage/ForgetPassword/UserEmail";
 import SignIn from "./components/Signin/SignIn";
 import BasicDeatils from "./components/talentAcquisition/BasicDeatils";
 import Job from "./components/RestrictedPages/Job/Job";
+import SignUpForPostJob from "./components/RestrictedPages/Job/SignUpForPostJob";
 export default function App() {
   const token = useSelector((store) => store?.userSignup?.token);
 
@@ -42,6 +43,10 @@ export default function App() {
         {
           path: "/user/home/jobs",
           element: <Job />,
+        },
+        {
+          path: "/user/home/postjob/beadmin",
+          element: <SignUpForPostJob />,
         },
       ],
     },
