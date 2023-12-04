@@ -11,6 +11,8 @@ import SignIn from "./components/Signin/SignIn";
 import BasicDeatils from "./components/talentAcquisition/BasicDeatils";
 import Job from "./components/RestrictedPages/Job/Job";
 import SignUpForPostJob from "./components/RestrictedPages/Job/SignUpForPostJob";
+import JobInformation from "./components/RestrictedPages/Job/JobInformation";
+import Description from "./components/RestrictedPages/Job/Form/Description";
 export default function App() {
   const token = useSelector((store) => store?.userSignup?.token);
 
@@ -47,6 +49,14 @@ export default function App() {
         {
           path: "/user/home/postjob/beadmin",
           element: <SignUpForPostJob />,
+        },
+        {
+          path: "/user/home/jobposting",
+          element: <JobInformation />,
+        },
+        {
+          path: "/user/home/jobposting/form/description",
+          element: <Description />,
         },
       ],
     },
