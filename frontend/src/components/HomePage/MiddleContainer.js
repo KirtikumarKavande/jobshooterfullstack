@@ -42,6 +42,7 @@ const MiddleContainer = () => {
     // }
     // dispatch(showUserSignup({ token: res.token }));
     await handleSignIn(postDataToDB, getDataFromDB, navigate, dispatch, userInput);
+    localStorage.setItem("email",userInput.email)
 
   };
 

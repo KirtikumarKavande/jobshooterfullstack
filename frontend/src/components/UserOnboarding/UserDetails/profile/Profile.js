@@ -45,7 +45,7 @@ const Profile = () => {
       recentCompany: userInput.recentCompany,
     });
     if (response.success) {
-      navigate('/user/homejobs')
+      navigate('/user/home/jobs')
       preventGoingBack("/user/home/jobs")
 
     }

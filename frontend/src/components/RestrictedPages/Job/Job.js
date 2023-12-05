@@ -5,7 +5,6 @@ import { MdCurrencyRupee } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
 import { TbFileDescription } from "react-icons/tb";
 import { GoDotFill } from "react-icons/go";
-import { FaBookmark } from "react-icons/fa";
 
 const Job = () => {
   return (

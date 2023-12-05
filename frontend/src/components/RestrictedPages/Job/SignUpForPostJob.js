@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SignUpContainer from "../../UserOnboarding/utilities/style/SignUpContainer";
 import FloatingLabelInput from "../../Signin/FloatingLabelInput";
 import useInput from "../../hooks/useInput";
 import Button from "../../utilities/styles/Button";
 import usePostDataToDB from "../../hooks/usePostDataToDB";
-
+import { useNavigate } from "react-router-dom";
+import { Spinner } from "@material-tailwind/react";
 const SignUpForPostJob = () => {
   const { userInput, onChange } = useInput({ email: "", password: "" });
   const postDataToDB=usePostDataToDB()
   const handleSignUpToAccount = () => {
     postDataToDB("signin?admin=true",userInput)
   };
+  const navigate=useNavigate()
+  const [isloading,setIsLoading]=useState(true)
+
+  const postJobEligibility = async() => {
+    const res= await postDataToDB('canpostjob',{email:localStorage.getItem('email')})
+    setIsLoading(false)
+    console.log(res)
+    if(res.data.canPostJob)
+    {
+      navigate('/user/home/jobposting')
+    }
+
+  }
+
+  useEffect(()=>{
+    postJobEligibility()
+  },[])
   return (
     <div>
       <SignUpContainer>
@@ -26,6 +44,12 @@ const SignUpForPostJob = () => {
             name="email"
             inputTyped={userInput?.email}
           />
+          {
+            isloading && 
+       <Spinner className="h-40 w-40 absolute z-30 left-[45vw] top-[40vh]" />
+
+          }
+
           <FloatingLabelInput
             label="Password"
             type="password"

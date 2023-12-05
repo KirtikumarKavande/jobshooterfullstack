@@ -83,4 +83,22 @@ const signInUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser, signInUser };
+const canpostjob = async (req, res) => {
+  try {
+    const data = await User.findOne({ email: req.body.email });
+
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      data: { canPostJob: data.canPostJob },
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      statusCode: 400,
+      message: "Something went wrong try again",
+    });
+  }
+};
+
+module.exports = { createUser, signInUser, canpostjob };

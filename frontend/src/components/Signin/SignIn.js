@@ -12,7 +12,6 @@ import { useDispatch } from "react-redux";
 
 const SignIn = () => {
   const { userInput, onChange } = useInput({ email: "", password: "" });
-  console.log("tricky",userInput)
 
   const postDataToDB = usePostDataToDB();
   const getDataFromDB = useGetDataFromDB();
@@ -26,6 +25,8 @@ const SignIn = () => {
       dispatch,
       userInput
     );
+    localStorage.setItem("email",userInput.email)
+
   };
   return (
     <>
