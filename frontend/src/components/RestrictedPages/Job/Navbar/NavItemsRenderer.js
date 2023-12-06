@@ -4,7 +4,6 @@ import {useNavigate} from 'react-router-dom'
 const NavItemsRenderer = (props) => {
   const navigate=useNavigate()
   const { logo, name,path } = props;
-  console.log("path",path)
 const navigateToRoutes=()=>{
   navigate(path)
 }

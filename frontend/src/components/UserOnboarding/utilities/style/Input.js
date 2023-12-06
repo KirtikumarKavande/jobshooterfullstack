@@ -1,7 +1,7 @@
 import React from "react";
 
 const Input = (props) => {
-  const { label, type, name, onChange, value,onFocus } = props;
+  const { label, type, name, onChange, value,onFocus ,onKeyDown} = props;
 
   return (
     <div>
@@ -17,6 +17,7 @@ const Input = (props) => {
           onChange={onChange}
           value={value}
           onFocus={onFocus}
+          onKeyDown={onKeyDown}
         />
       </div>
     </div>

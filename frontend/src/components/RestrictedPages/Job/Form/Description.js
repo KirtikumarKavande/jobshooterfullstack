@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { jobDescritption } from "../../utilites/constant";
+import { useLocation } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -9,9 +10,16 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
 const Description = () => {
   const [value, setValue] = useState(jobDescritption);
+  const navigate = useNavigate();
+  // const { pathname } = useLocation();
+
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, [pathname]);
 
   return (
     <div className="bg-[#F4F2EE] min-h-screen mt-16 w-full">
@@ -69,7 +77,14 @@ const Description = () => {
             <div className="flex justify-between mt-4 ">
               <div className="text-blue-700 font-semibold">Preview</div>
               <div className="flex space-x-2">
-                <Button className="bg-white text-gray-600">Back</Button>
+                <Button
+                  className="bg-white text-gray-600"
+                  onClick={() => {
+                    navigate("/user/home/jobposting");
+                  }}
+                >
+                  Back
+                </Button>
 
                 <Button className="bg-blue-700">Continue</Button>
               </div>
@@ -80,16 +95,19 @@ const Description = () => {
         <div className="w-4/12  pl-4">
           <Card className=" w-96">
             <CardBody>
-              <Typography variant="h5" color="blue-gray" className="mb-2 text-gray-600">
-              Enhance your job posting
+              <Typography
+                variant="h5"
+                color="blue-gray"
+                className="mb-2 text-gray-600"
+              >
+                Enhance your job posting
               </Typography>
               <Typography>
-                 Add a personal touch by adding your
-                Linkedin profile to your job post. This helps candidate learn
-                more about the job and your company
+                Add a personal touch by adding your Linkedin profile to your job
+                post. This helps candidate learn more about the job and your
+                company
               </Typography>
             </CardBody>
-          
           </Card>
         </div>
       </div>

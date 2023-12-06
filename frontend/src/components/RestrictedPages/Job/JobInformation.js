@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MainConntainer from "../../talentAcquisition/MainConntainer";
 import CardContainer from "../../talentAcquisition/CardContainer";
 import Input from "../../UserOnboarding/utilities/style/Input";
 import { IoInformationCircleSharp } from "react-icons/io5";
+import Select from "../../UserOnboarding/utilities/style/Select";
+import ButtonStyle from "../../utilities/styles/Button";
+import Slider from "rc-slider";
+import { City } from "country-state-city";
+import {useNavigate} from 'react-router-dom'
 import {
   Popover,
   PopoverHandler,
   PopoverContent,
   Button,
 } from "@material-tailwind/react";
-import Select from "../../UserOnboarding/utilities/style/Select";
-
-import ButtonStyle from "../../utilities/styles/Button";
-import Slider from "rc-slider";
+import useInput from "../../hooks/useInput";
+const allCityFromIndia = City.getCitiesOfCountry("IN");
 
 const JobInformation = () => {
+  const navigate=useNavigate()
   const [salaryRange, setSalaryRange] = useState({
     minSalary: 0,
     maxSalary: 100,
@@ -24,12 +28,53 @@ const JobInformation = () => {
     maxExprience: 20,
   });
 
+  const { userInput, onChange, setUserInput } = useInput({
+    jobTitle: "",
+    companyName: "",
+    jobLocation: "",
+  });
+  const [isShowSuggestion, setIsShowSuggestion] = useState(false);
+  console.log("userInput", userInput);
   const handleSliderChangeForSalary = (values) => {
     setSalaryRange({ minSalary: values[0], maxSalary: values[1] });
   };
   const handleSliderChangeForExprience = (values) => {
     setxperienceRange({ minExprience: values[0], maxExprience: values[1] });
   };
+  const [city, setCity] = useState(allCityFromIndia);
+
+  useEffect(() => {
+    const updatedData = allCityFromIndia.filter((item) => {
+      return item.name
+        .toLocaleLowerCase()
+        .includes(userInput.jobLocation.toLocaleLowerCase());
+    });
+
+    setCity(updatedData);
+  }, [userInput.jobLocation]);
+
+  const selectFromOption = (item) => {
+    setUserInput({ ...userInput, jobLocation: item.name });
+    setIsShowSuggestion(false);
+  };
+
+  const [cursorOnIndex, setCursorOnIndex] = useState(0);
+  const keyPress = (e) => {
+    if (e.key === "ArrowDown" && cursorOnIndex < city.length - 1) {
+      setCursorOnIndex(cursorOnIndex + 1);
+    } else if (e.key === "ArrowUp" && cursorOnIndex > 0) {
+      setCursorOnIndex(cursorOnIndex - 1);
+    } else if (e.key === "Enter") {
+      setUserInput({
+        ...userInput,
+        jobLocation: city[cursorOnIndex]?.name,
+      });
+      setIsShowSuggestion(false);
+    }
+  };
+  const handleSignUpToAccount=()=>{
+    navigate('/user/home/jobposting/form/description')
+  }
   return (
     <div className="pt-16">
       <MainConntainer bgColor={"#38434F"}>
@@ -56,14 +101,59 @@ const JobInformation = () => {
               </Popover>
             </span>
 
-            <Input label="Job title" />
-            <Input label="Company" />
+            <Input label="Job title" name="jobTitle" onChange={onChange} />
+            <Input label="Company" name="companyName" onChange={onChange} />
+
+            <div className="w-full  relative">
+              <Input
+                label="Job Location"
+                name="jobLocation"
+                onChange={onChange}
+                value={userInput.jobLocation}
+                onKeyDown={keyPress}
+                onFocus={() => {
+                  setIsShowSuggestion(true);
+                }}
+              />
+
+              {isShowSuggestion && (
+                <div className=" w-full border border-gray-700 max-h-32    absolute z-30 rounded-lg px-2 bg-[#F9FAFB] overflow-y-scroll">
+                  {/* {city.map((item, index) => (
+                  <SearchItemRenderer
+                    city={item.name}
+                    onClick={() => {
+                      selectFromOption(item);
+                    }}
+                    index={index}
+                    activeIndex={activeIndex}
+                  />
+                ))} */}
+
+                  {city?.map((item, index) => {
+                    return (
+                      <div
+                        key={item.isoCode}
+                        onClick={(e) => {
+                          selectFromOption(item);
+                        }}
+                        className={`pl-2 hover:bg-gray-300  cursor-pointer ${
+                          index === cursorOnIndex && "bg-gray-200"
+                        } `}
+                      >
+                        {item.name} <hr />
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
             <Select
               label="Workplace type"
               name="WorkplaceType"
               optionInSelect={["On-Site", "Hybrid", "Remote"]}
             />
-            <Input label="Job Location" />
+
             <Select
               label="Work type"
               name="WorkType"
@@ -97,18 +187,22 @@ const JobInformation = () => {
               max={20}
               step={1}
               range
-              defaultValue={[experienceRange.minExprience, experienceRange.maxExprience]}
+              defaultValue={[
+                experienceRange.minExprience,
+                experienceRange.maxExprience,
+              ]}
               onChange={handleSliderChangeForExprience}
               className="text-blue-700 mx-2"
             />
             <p className="text-center text-gray-700">
-              {experienceRange.minExprience}LPA -{experienceRange.maxExprience}Yrs
+              {experienceRange.minExprience}LPA -{experienceRange.maxExprience}
+              Yrs
             </p>
             <ButtonStyle
               bgColor={"#0A66C2"}
               height={"7vh"}
               textColour={"white"}
-              //   onClick={handleSignUpToAccount}
+                onClick={handleSignUpToAccount}
             >
               Get Started For Free
             </ButtonStyle>
