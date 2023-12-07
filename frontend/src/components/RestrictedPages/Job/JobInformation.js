@@ -7,7 +7,9 @@ import Select from "../../UserOnboarding/utilities/style/Select";
 import ButtonStyle from "../../utilities/styles/Button";
 import Slider from "rc-slider";
 import { City } from "country-state-city";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   Popover,
   PopoverHandler,
@@ -15,23 +17,29 @@ import {
   Button,
 } from "@material-tailwind/react";
 import useInput from "../../hooks/useInput";
+import { updateJobInforation } from "../../store/PostJobInformationSlice";
 const allCityFromIndia = City.getCitiesOfCountry("IN");
 
 const JobInformation = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+  const getJobInformation = useSelector((store) => store.jobPostInfo);
+  console.log("getJobInformation", getJobInformation);
+  const dispatch = useDispatch();
   const [salaryRange, setSalaryRange] = useState({
-    minSalary: 0,
-    maxSalary: 100,
+    minSalary: getJobInformation.minSalary,
+    maxSalary: getJobInformation.maxSalary,
   });
   const [experienceRange, setxperienceRange] = useState({
-    minExprience: 0,
-    maxExprience: 20,
+    minExprience: getJobInformation.minExprience,
+    maxExprience: getJobInformation.maxExprience,
   });
 
   const { userInput, onChange, setUserInput } = useInput({
-    jobTitle: "",
-    companyName: "",
-    jobLocation: "",
+    jobTitle: getJobInformation.jobTitle,
+    companyName: getJobInformation.companyName,
+    jobLocation: getJobInformation.jobLocation,
+    WorkplaceType: getJobInformation.WorkplaceType,
+    WorkType: getJobInformation.WorkType,
   });
   const [isShowSuggestion, setIsShowSuggestion] = useState(false);
   console.log("userInput", userInput);
@@ -72,9 +80,13 @@ const JobInformation = () => {
       setIsShowSuggestion(false);
     }
   };
-  const handleSignUpToAccount=()=>{
-    navigate('/user/home/jobposting/form/description')
-  }
+
+  const handleSignUpToAccount = () => {
+    dispatch(
+      updateJobInforation({ ...userInput, ...salaryRange, ...experienceRange })
+    );
+    navigate("/user/home/jobposting/form/description");
+  };
   return (
     <div className="pt-16">
       <MainConntainer bgColor={"#38434F"}>
@@ -101,8 +113,18 @@ const JobInformation = () => {
               </Popover>
             </span>
 
-            <Input label="Job title" name="jobTitle" onChange={onChange} />
-            <Input label="Company" name="companyName" onChange={onChange} />
+            <Input
+              label="Job title"
+              name="jobTitle"
+              onChange={onChange}
+              value={userInput.jobTitle}
+            />
+            <Input
+              label="Company"
+              name="companyName"
+              onChange={onChange}
+              value={userInput.companyName}
+            />
 
             <div className="w-full  relative">
               <Input
@@ -118,17 +140,6 @@ const JobInformation = () => {
 
               {isShowSuggestion && (
                 <div className=" w-full border border-gray-700 max-h-32    absolute z-30 rounded-lg px-2 bg-[#F9FAFB] overflow-y-scroll">
-                  {/* {city.map((item, index) => (
-                  <SearchItemRenderer
-                    city={item.name}
-                    onClick={() => {
-                      selectFromOption(item);
-                    }}
-                    index={index}
-                    activeIndex={activeIndex}
-                  />
-                ))} */}
-
                   {city?.map((item, index) => {
                     return (
                       <div
@@ -152,11 +163,13 @@ const JobInformation = () => {
               label="Workplace type"
               name="WorkplaceType"
               optionInSelect={["On-Site", "Hybrid", "Remote"]}
+              onChange={onChange}
             />
 
             <Select
               label="Work type"
               name="WorkType"
+              onChange={onChange}
               optionInSelect={[
                 "Full-Time",
                 "Part-Time",
@@ -202,7 +215,7 @@ const JobInformation = () => {
               bgColor={"#0A66C2"}
               height={"7vh"}
               textColour={"white"}
-                onClick={handleSignUpToAccount}
+              onClick={handleSignUpToAccount}
             >
               Get Started For Free
             </ButtonStyle>
