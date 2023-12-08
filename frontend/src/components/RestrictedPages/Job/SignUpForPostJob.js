@@ -19,7 +19,7 @@ const SignUpForPostJob = () => {
     const res= await postDataToDB('canpostjob',{email:localStorage.getItem('email')})
     setIsLoading(false)
     console.log(res)
-    if(res.data.canPostJob)
+    if(res?.data?.canPostJob)
     {
       navigate('/user/home/jobposting')
     }
@@ -43,10 +43,12 @@ const SignUpForPostJob = () => {
             onChange={onChange}
             name="email"
             inputTyped={userInput?.email}
+            disabled={isloading}
+
           />
           {
             isloading && 
-       <Spinner className="h-40 w-40 absolute z-30 left-[45vw] top-[40vh]" />
+       <Spinner className="h-40 w-40 absolute z-50 left-[45vw] top-[40vh]" />
 
           }
 
@@ -56,6 +58,9 @@ const SignUpForPostJob = () => {
             onChange={onChange}
             name="password"
             inputTyped={userInput?.password}
+            disabled={isloading}
+
+            
           />
         </div>
 

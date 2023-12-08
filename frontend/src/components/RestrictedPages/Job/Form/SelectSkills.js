@@ -1,7 +1,7 @@
 import React from "react";
 
 const SelectSkills = (props) => {
-  const { data, selectFromOption,filteredData } = props;
+  const { data, selectFromOption,filteredData,setTypedSkills } = props;
   return (
     <div>
       { (
@@ -9,9 +9,10 @@ const SelectSkills = (props) => {
           {filteredData?.map((item, index) => {
             return (
               <div
+              className="cursor-pointer"
                 key={item.isoCode}
                 onClick={(e) => {
-                  selectFromOption(item);
+                  setTypedSkills(item);
                 }}
               >
                 {item} <hr />

@@ -2,21 +2,19 @@ import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { jobDescritption } from "../../utilites/constant";
-import { useLocation } from "react-router-dom";
 import {
   Card,
   CardBody,
-  CardFooter,
   Typography,
   Button,
   Alert,
-  Input,
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import SelectSkills from "./SelectSkills";
 import skillsList from "../utiites/skillsList";
 import { IoMdAddCircleOutline } from "react-icons/io";
+import { toast } from "react-hot-toast";
 
 const Description = () => {
   const [value, setValue] = useState(jobDescritption);
@@ -24,8 +22,37 @@ const Description = () => {
   const [open, setOpen] = useState(false);
   const [getskills, setGetSkills] = useState(skillsList);
   const [typedSkills, setTypedSkills] = useState("");
+  const [skillsThatYouHave, setSkillsThatYouHave] = useState(["HTML", "CSS"]);
 
   const navigate = useNavigate();
+  const addSkillsInList = () => {
+    if(skillsThatYouHave.length===10) {
+      toast.error("you can add max 10 skills")
+      return 
+    }
+    setSkillsThatYouHave([...skillsThatYouHave, typedSkills]);
+    setTypedSkills("");
+  };
+
+  useEffect(() => {
+    const updatedSkills = skillsList.filter((item) => {
+      return item
+        ?.toLocaleLowerCase()
+        .includes(typedSkills?.toLocaleLowerCase());
+    });
+    setGetSkills(updatedSkills);
+  }, [typedSkills]);
+
+  const deleteSkillsFromList = (index) => {
+    const mySkills = [...skillsThatYouHave];
+    const updatedSkills = mySkills.filter((item, i) => {
+      if (index !== i) {
+        return item;
+      }
+    });
+    setSkillsThatYouHave(updatedSkills);
+  };
+
 
   return (
     <div className="bg-[#F4F2EE] min-h-screen mt-16 w-full">
@@ -49,39 +76,11 @@ const Description = () => {
           >
             <div className="flex flex-col items-center">
               <div className=" border-gray-400 w-full font-bold border h-24 space-x-3 text-black px-2 overflow-y-scroll">
-                <div className="inline ">
-                  <span>1.</span> <span>HTML</span>
-                </div>
-                <div className="inline">
-                  <span>2.</span> <span>HTML</span>
-                </div>
-                <div className="inline">
-                  <span>2.</span> <span>HTML</span>
-                </div>
-                <div className="inline">
-                  <span>2.</span> <span>HTML</span>
-                </div>
-                <div className="inline">
-                  <span>2.</span> <span>HTML</span>
-                </div>
-                <div className="inline">
-                  <span>2.</span> <span>HTML</span>
-                </div>
-                <div className="inline">
-                  <span>2.</span> <span>HTML</span>
-                </div>
-                <div className="inline">
-                  <span>2.</span> <span>HTML</span>
-                </div>
-                <div className="inline">
-                  <span>2.</span> <span>HTML</span>
-                </div>
-                <div className="inline">
-                  <span>2.</span> <span>HTML</span>
-                </div>
-                <div className="inline">
-                  <span>2.</span> <span>HTML</span>
-                </div>
+                {skillsThatYouHave.map((item, index) => (
+                  <div className="inline ">
+                    <span>{index + 1}.</span> <span>{item}</span>
+                  </div>
+                ))}
               </div>
             </div>
             <div className=" lg:pl-32 pt-4">
@@ -90,13 +89,24 @@ const Description = () => {
                 <input
                   className="w-72 border-gray-600 border rounded-md h-10 px-2 text-black "
                   placeholder="Add Skill"
+                  onChange={(e) => {
+                    setTypedSkills(e.target.value);
+                  }}
+                  value={typedSkills}
                 />{" "}
-                <span className="font-bold text-2xl pl-1 cursor-pointer mt-2 absolute ml-64 text-blue-500">
+                <button
+                  disabled={skillsThatYouHave.length ===10}
+                  onClick={addSkillsInList}
+                  className="font-bold text-2xl pl-1 cursor-pointer mt-2 absolute ml-64 text-blue-500"
+                >
                   {" "}
                   <IoMdAddCircleOutline />
-                </span>
+                </button>
               </div>
-              <SelectSkills filteredData={getskills} />
+              <SelectSkills
+                filteredData={getskills}
+                setTypedSkills={setTypedSkills}
+              />
             </div>
           </Modal>
 
@@ -114,47 +124,34 @@ const Description = () => {
           </p>
           <div>
             <div className="flex space-x-2 h-fit  border flex-wrap">
-              {" "}
-              <div className="bg-[#004C33] rounded-full w-fit h-10 p-2 my-2 text-white">
-                {" "}
-                <span className="font-bold mr-1 ">web Development</span>{" "}
-                <span className="">X</span>
-              </div>
-              <div className="bg-[#004C33] rounded-full w-fit h-10 p-2 my-2 text-white">
-                {" "}
-                <span className="font-bold mr-1 ">web Development</span>{" "}
-                <span className="">X</span>
-              </div>{" "}
-              <div className="bg-[#004C33] rounded-full w-fit h-10 p-2 my-2 text-white">
-                {" "}
-                <span className="font-bold mr-1 ">web Development</span>{" "}
-                <span className="">X</span>
-              </div>{" "}
-              <div className="bg-[#004C33] rounded-full w-fit h-10 p-2 my-2 text-white">
-                {" "}
-                <span className="font-bold mr-1 ">web Development</span>{" "}
-                <span className="">X</span>
-              </div>{" "}
-              <div className="bg-[#004C33] rounded-full w-fit h-10 p-2 my-2 text-white">
-                {" "}
-                <span className="font-bold mr-1 ">web Development</span>{" "}
-                <span className="">X</span>
-              </div>{" "}
-              <div className="bg-[#004C33] rounded-full w-fit h-10 p-2 my-2 text-white">
-                {" "}
-                <span className="font-bold mr-1 ">web Development</span>{" "}
-                <span className="">X</span>
-              </div>
-              <div
+              {skillsThatYouHave.map((item, index) => (
+                <div
+                  key={item}
+                  className="bg-[#004C33] rounded-full w-fit h-10 p-2 my-2 text-white"
+                >
+                  {" "}
+                  <span className="font-bold mr-1 ">{item}</span>{" "}
+                  <span
+                    className="font-semibold cursor-pointer"
+                    onClick={() => {
+                      deleteSkillsFromList(index);
+                    }}
+                  >
+                    X
+                  </span>
+                </div>
+              ))}{" "}
+              <button
                 className="bg-[#FFFF] rounded-full w-fit h-10 p-2 my-2 text-black cursor-pointer"
                 onClick={() => {
                   setIsModalOpen(true);
                 }}
+                disabled={skillsThatYouHave.length ===10}
               >
                 {" "}
                 <span className="font-bold mr-1 ">Add Skills</span>{" "}
                 <span className="">+</span>
-              </div>
+              </button>
             </div>
             <hr className="text-black" />
             <div className="flex justify-between mt-4 ">

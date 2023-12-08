@@ -6,7 +6,8 @@ const FloatingLabelPassword = ({
   type,
   onChange,
   inputTyped,
-  name
+  name,
+  disabled
 }) => {
   //   const [inputTyped, setValue] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -22,13 +23,14 @@ const FloatingLabelPassword = ({
   return (
     <div className="relative w-full mt-2">
       <input
-        className="w-full border  border-black focus:border-blue-700 focus:border-2 focus:outline-none pt-6 px-3 rounded-md"
+        className="w-full z-0 border  border-black focus:border-blue-700 focus:border-2 focus:outline-none pt-6 px-3 rounded-md"
         type={showPassword ? "text" : type}
         placeholder={placeholder}
         value={inputTyped}
         onChange={onChange}
         autoComplete="off"
         name={name}
+        disabled={disabled}
       />
 
       <label
