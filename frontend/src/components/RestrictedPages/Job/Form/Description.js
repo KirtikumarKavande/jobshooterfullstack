@@ -12,6 +12,8 @@ import { toast } from "react-hot-toast";
 import CardContainer from "./Card";
 import JobAddedSummeryCard from "./JobAddedSummeryCard";
 import Parser from "html-react-parser";
+import usePostDataToDB from "../../../hooks/usePostDataToDB";
+import { useSelector } from "react-redux";
 
 
 const Description = () => {
@@ -22,7 +24,10 @@ const Description = () => {
   const [typedSkills, setTypedSkills] = useState("");
   const [skillsThatYouHave, setSkillsThatYouHave] = useState(["HTML", "CSS"]);
   const [isModelOpenForPreview, setIsModalOpenForPreview] = useState(false);
+  const getJobInformation = useSelector((store) => store.jobPostInfo);
 
+  
+  const postDatatoDB= usePostDataToDB()
   const navigate = useNavigate();
   const addSkillsInList = () => {
     if (skillsThatYouHave.length === 10) {
@@ -52,7 +57,18 @@ const Description = () => {
     setSkillsThatYouHave(updatedSkills);
   };
   
+const handleJobInformationSubmit=()=>{
+  postDatatoDB('jobInformation',{jobDescription,skills:skillsThatYouHave,
+    jobTitle:getJobInformation.jobTitle,
+    companyName:getJobInformation.companyName,
+    jobLocation:getJobInformation.jobLocation,
+    workplaceType:getJobInformation.workplaceType,
+    workType:getJobInformation.workType,
+    experienceRange:`${getJobInformation.minExprience}-${getJobInformation.maxExprience}`,
+    salaryRange:`${getJobInformation.minSalary}-${getJobInformation.maxSalary}`
 
+  })
+}
   return (
     <div className="bg-[#F4F2EE] min-h-screen mt-16 w-full">
       <div className=" lg:mx-28 pt-9 flex-auto lg:flex">
@@ -190,7 +206,7 @@ const Description = () => {
                   Back
                 </Button>
 
-                <Button className="bg-blue-700">Continue</Button>
+                <Button className="bg-blue-700" onClick={handleJobInformationSubmit}>Continue</Button>
               </div>
             </div>
           </div>

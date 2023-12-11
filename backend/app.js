@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const userDetails = require("./routes/userDetails");
+const jobInformationRoutes=require("./routes/jobInformation")
 
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
@@ -19,6 +20,8 @@ app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(userRoutes);
 app.use(userDetails);
 app.use(forgetPasswordRoutes)
+app.use(jobInformationRoutes)
+
 
 
 mongoose

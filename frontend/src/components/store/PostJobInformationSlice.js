@@ -5,8 +5,8 @@ const PostJobInformationSlice = createSlice({
     jobTitle: "",
     companyName: "",
     jobLocation: "",
-    WorkplaceType: "",
-    WorkType: "",
+    WorkplaceType: "On-site",
+    WorkType: "Full Time",
     maxExprience: 20,
     maxSalary: 100,
     minExprience: 0,
@@ -14,12 +14,12 @@ const PostJobInformationSlice = createSlice({
   },
   name: "pstJobInformation",
   reducers: {
-    updateJobInforation(state, action) {
+    updateJobInformation(state, action) {
       return { ...state, ...action.payload };
     },
   },
 });
 
-export const { updateJobInforation } = PostJobInformationSlice.actions;
+export const { updateJobInformation } = PostJobInformationSlice.actions;
 
 export default PostJobInformationSlice;

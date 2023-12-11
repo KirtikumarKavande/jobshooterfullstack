@@ -17,7 +17,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import useInput from "../../hooks/useInput";
-import { updateJobInforation } from "../../store/PostJobInformationSlice";
+import { updateJobInformation } from "../../store/PostJobInformationSlice";
 const allCityFromIndia = City.getCitiesOfCountry("IN");
 
 const JobInformation = () => {
@@ -83,7 +83,7 @@ const JobInformation = () => {
 
   const handleSignUpToAccount = () => {
     dispatch(
-      updateJobInforation({ ...userInput, ...salaryRange, ...experienceRange })
+      updateJobInformation({ ...userInput, ...salaryRange, ...experienceRange })
     );
     navigate("/user/home/jobposting/form/description");
   };
@@ -161,14 +161,14 @@ const JobInformation = () => {
 
             <Select
               label="Workplace type"
-              name="WorkplaceType"
+              name="workplaceType"
               optionInSelect={["On-Site", "Hybrid", "Remote"]}
               onChange={onChange}
             />
 
             <Select
               label="Work type"
-              name="WorkType"
+              name="workType"
               onChange={onChange}
               optionInSelect={[
                 "Full-Time",
