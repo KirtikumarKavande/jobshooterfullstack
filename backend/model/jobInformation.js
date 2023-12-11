@@ -12,6 +12,7 @@ const jobPostInformationByRecruiter = new Schema({
     salaryRange:{type:String},
     skills:{type:Array},
     jobDescription:{type:String},
+    email:{type:String}
 });
 
 module.exports = mongoose.model(

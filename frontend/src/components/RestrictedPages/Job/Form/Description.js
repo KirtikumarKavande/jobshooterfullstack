@@ -11,10 +11,9 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { toast } from "react-hot-toast";
 import CardContainer from "./Card";
 import JobAddedSummeryCard from "./JobAddedSummeryCard";
-import Parser from "html-react-parser";
 import usePostDataToDB from "../../../hooks/usePostDataToDB";
 import { useSelector } from "react-redux";
-
+import ReactHtmlParser from "html-react-parser";
 
 const Description = () => {
   const [jobDescription, setJobDescription] = useState(jobDescritption);
@@ -26,8 +25,7 @@ const Description = () => {
   const [isModelOpenForPreview, setIsModalOpenForPreview] = useState(false);
   const getJobInformation = useSelector((store) => store.jobPostInfo);
 
-  
-  const postDatatoDB= usePostDataToDB()
+  const postDatatoDB = usePostDataToDB();
   const navigate = useNavigate();
   const addSkillsInList = () => {
     if (skillsThatYouHave.length === 10) {
@@ -47,6 +45,7 @@ const Description = () => {
     setGetSkills(updatedSkills);
   }, [typedSkills]);
 
+  console.log("jobDescription", jobDescritption);
   const deleteSkillsFromList = (index) => {
     const mySkills = [...skillsThatYouHave];
     const updatedSkills = mySkills.filter((item, i) => {
@@ -56,19 +55,26 @@ const Description = () => {
     });
     setSkillsThatYouHave(updatedSkills);
   };
-  
-const handleJobInformationSubmit=()=>{
-  postDatatoDB('jobInformation',{jobDescription,skills:skillsThatYouHave,
-    jobTitle:getJobInformation.jobTitle,
-    companyName:getJobInformation.companyName,
-    jobLocation:getJobInformation.jobLocation,
-    workplaceType:getJobInformation.workplaceType,
-    workType:getJobInformation.workType,
-    experienceRange:`${getJobInformation.minExprience}-${getJobInformation.maxExprience}`,
-    salaryRange:`${getJobInformation.minSalary}-${getJobInformation.maxSalary}`
 
-  })
-}
+  const handleJobInformationSubmit = async () => {
+    const res = await postDatatoDB("jobInformation", {
+      jobDescription,
+      skills: skillsThatYouHave,
+      jobTitle: getJobInformation.jobTitle,
+      companyName: getJobInformation.companyName,
+      jobLocation: getJobInformation.jobLocation,
+      workplaceType: getJobInformation.workplaceType,
+      workType: getJobInformation.workType,
+      experienceRange: `${getJobInformation.minExprience}-${getJobInformation.maxExprience}`,
+      salaryRange: `${getJobInformation.minSalary}-${getJobInformation.maxSalary}`,
+    });
+    if (res.success) {
+      navigate("/user/home/jobs");
+      toast.success("Data saved successfully");
+    } else {
+      toast.error("something went wrong");
+    }
+  };
   return (
     <div className="bg-[#F4F2EE] min-h-screen mt-16 w-full">
       <div className=" lg:mx-28 pt-9 flex-auto lg:flex">
@@ -99,7 +105,12 @@ const handleJobInformationSubmit=()=>{
             </p>
             <div className="w-full border border-gray-400 shadow-md h-[40vh] overflow-y-scroll p-2 rounded-lg">
               <JobAddedSummeryCard />
-              {Parser(jobDescription)}
+              <ReactQuill
+                theme="snow"
+                value={jobDescription}
+                readOnly={true} // Make the preview read-only
+                className="border border-black w-full md:w-auto"
+              />
             </div>
           </Modal>
           <Modal
@@ -206,7 +217,12 @@ const handleJobInformationSubmit=()=>{
                   Back
                 </Button>
 
-                <Button className="bg-blue-700" onClick={handleJobInformationSubmit}>Continue</Button>
+                <Button
+                  className="bg-blue-700"
+                  onClick={handleJobInformationSubmit}
+                >
+                  Continue
+                </Button>
               </div>
             </div>
           </div>
